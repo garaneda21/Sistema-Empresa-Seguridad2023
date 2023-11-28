@@ -1,10 +1,20 @@
 CREATE TABLE territorio(
-	id_territorio_padre INTEGER not null,
+	id_territorio_padre INTEGER,		-- ¿Se deberia crear otra tabla con los id_territorio para que no sean NULL?
 	id_territorio INTEGER not null,
 	nom_territorio varchar(30),
 	tipo_territorio varchar(15),
 	imp_territorio DECIMAL,
 	divisa varchar(15)
+);
+
+CREATE TABLE ciclo_facturacion(			-- debe ir el ciclo
+	id_ciclo INTEGER not null,
+	ciclo_fact varchar(50)
+);
+
+CREATE TABLE ciclo_territorio(			-- este igual
+	id_territorio INTEGER not null,
+	id_ciclo INTEGER not null
 );
 
 CREATE TABLE sucursal(
@@ -53,7 +63,12 @@ CREATE TABLE articulo(
 	nom_articulo varchar(30),
 	estado_articulo varchar(15),
     usa_simcard boolean,
-    precio float
+    -- precio float		este no deberia ir
+);
+
+CREATE TABLE precio(				-- deberia ir esta tabla
+	id precio INTEGER not null,
+	precio float
 );
 
 CREATE TABLE stock_articulo(
@@ -114,7 +129,7 @@ CREATE TABLE descuento_articulo(
 CREATE TABLE accion_cliente(
 	cedula INTEGER not null,
 	id_accion INTEGER not null,
-	fecha_ingreso_accion DATE
+	-- fecha_ingreso_accion DATE 		este no deberia ir segun el profe
 );
 
 CREATE TABLE accion(
@@ -126,7 +141,13 @@ CREATE TABLE accion(
 	motivo_baja varchar(500),
 	fecha_ini_accion DATE,
 	fecha_ter_accion DATE,
-	estado_accion varchar(15)
+	id_estado INTEGER not null,		-- conecta accion con estado_accion FK
+	fecha_ingreso_accion DATE		-- aqui deberia ir
+);
+
+CREATE TABLE estado_accion(			-- debe ir 
+	id_estado INTEGER not null,
+	descripcion_estado varchar(20)	
 );
 
 CREATE TABLE contrata_plan(
@@ -137,26 +158,26 @@ CREATE TABLE contrata_plan(
 	id_contrato INTEGER not null
 );
 
-CREATE TABLE plan_articulo_opcional(
-	id_plan INTEGER not null,
-	id_articulo INTEGER not null
-);
-
-CREATE TABLE descuento(
+/*CREATE TABLE descuento(				-- podriamos quitarla... pq no es necesario en ningun proceso de las altas
 	id_descuento INTEGER not null,
 	porcentaje DECIMAL,
 	motivo_descuento varchar(50)
-);
+);*/
 
 CREATE TABLE plan(
 	id_plan INTEGER not null,
 	nombre_plan varchar(30),
 	estado_plan varchar(15),
 	precio_plan INTEGER,
-	id_conc_fact INTEGER not null
+--	id_conc_fact INTEGER not null		-- podriamos quitarla... pq no es necesario en ningun proceso de las altas
 );
 
 CREATE TABLE plan_articulo_ligado(
+	id_plan INTEGER not null,
+	id_articulo INTEGER not null
+);
+
+CREATE TABLE plan_articulo_opcional(
 	id_plan INTEGER not null,
 	id_articulo INTEGER not null
 );
