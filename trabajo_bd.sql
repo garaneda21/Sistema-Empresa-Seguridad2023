@@ -7,6 +7,10 @@ CREATE TABLE territorio(
 	divisa varchar(15)
 );
 
+-- modelar como id_ciclo, dia_inicio, dia_termino
+-- asi se puede ingresar un siclo que empieze los dias 3 de cada mes y termine los dias 2 por ejemplo
+-- tambien en las observaciones sale que nos falto crear una entitad periodo que se relacione con esta,
+-- no creo que sea nesesario agregarla, pero para mas orden se podria.
 CREATE TABLE ciclo_facturacion(			-- debe ir el ciclo
 	id_ciclo INTEGER not null,
 	ciclo_fact varchar(50)
@@ -44,6 +48,7 @@ CREATE TABLE simcard(
 	id_sucursal INTEGER not null
 );
 
+-- Gerardo: tengo duda con esto, en
 CREATE TABLE contrata_articulo(
 	id_domicilio INTEGER not null,
 	id_articulo INTEGER not null,
@@ -58,7 +63,7 @@ CREATE TABLE contrata_articulo(
 );
 
 CREATE TABLE articulo(
-	id_articulo_pack INTEGER not null,
+	id_articulo_pack INTEGER not null, -- Gerardo: este no deberia ir
 	id_articulo INTEGER not null,
 	nom_articulo varchar(30),
 	estado_articulo varchar(15),
@@ -66,6 +71,14 @@ CREATE TABLE articulo(
     -- precio float		este no deberia ir
 );
 
+-- Gerardo: Añadí esta tabla para arreglar el mucho es a muchos
+CREATE TABLE pack(
+	id_articulo_pack INTEGER NOT NULL, -- PK/FK
+	id_articulo_contenido INTEGER NOT NULL --PK/FK
+);
+-- Gerardo: Añadí esta tabla
+
+-- Gerardo: ¿lo relacionamos con Articulos, Domicilio. Contrato, Planes?
 CREATE TABLE precio(				-- deberia ir esta tabla
 	id precio INTEGER not null,
 	precio float
@@ -93,12 +106,12 @@ CREATE TABLE cliente(
 
 CREATE TABLE cuenta(
 	num_cuenta INTEGER not null,
+	cedula INTEGER not null,
+	id_ciclo INTEGER not null,
 	dir_facturacion varchar(40),
 	correo_electronico varchar(30),
 	estado_cuenta varchar(15),
-	monto_total INTEGER,
-	cedula INTEGER not null,
-	id_ciclo INTEGER not null,
+	monto_total INTEGER, -- Gerardo: ¿Este no deberia ir?
     fecha_alta_cuenta DATE,
     fecha_baja_cuenta DATE,
     causa_baja_cuenta varchar(100)
@@ -106,16 +119,17 @@ CREATE TABLE cuenta(
 
 CREATE TABLE domicilio(
 	id_domicilio INTEGER not null,
+	num_cuenta INTEGER not null,
 	tipo_domicilio varchar(30),
     direccion varchar(50),
 	estado_domicilio varchar(15),
 	monto_domicilio INTEGER,
-	num_cuenta INTEGER not null,
     fecha_alta_domicilio DATE,
     fecha_baja_domicilio DATE,
     causa_baja_domicilio varchar(100)
 );
 
+-- Gerardo: En las Obs. se pide relacionar con Precio
 CREATE TABLE contrato(
 	id_contrato INTEGER not null,
 	dur_contrato time
@@ -129,20 +143,20 @@ CREATE TABLE descuento_articulo(
 CREATE TABLE accion_cliente(
 	cedula INTEGER not null,
 	id_accion INTEGER not null,
-	-- fecha_ingreso_accion DATE 		este no deberia ir segun el profe
+	-- fecha_ingreso_accion DATE 		este no deberia ir segun el profe (1)
 );
 
 CREATE TABLE accion(
 	id_accion INTEGER not null,
-	destinatario_accion INTEGER,
-	parametros varchar(100),
+	destinatario_accion INTEGER, -- Gerardo: Esto creo que no va
+	parametros varchar(100), -- Gerardo: Este debe se un varchar gigante ya que van muchos parametros concatenados
 	accion_realizar varchar(30),
 	comentarios varchar(500),
-	motivo_baja varchar(500),
+	motivo_baja varchar(500), --Gerardo: Este creo que no va
 	fecha_ini_accion DATE,
 	fecha_ter_accion DATE,
 	id_estado INTEGER not null,		-- conecta accion con estado_accion FK
-	fecha_ingreso_accion DATE		-- aqui deberia ir
+	fecha_ingreso_accion DATE		-- (1) aqui deberia ir
 );
 
 CREATE TABLE estado_accion(			-- debe ir 
@@ -168,7 +182,7 @@ CREATE TABLE plan(
 	id_plan INTEGER not null,
 	nombre_plan varchar(30),
 	estado_plan varchar(15),
-	precio_plan INTEGER,
+	precio_plan INTEGER, -- lo mismo de la entidad precio
 --	id_conc_fact INTEGER not null		-- podriamos quitarla... pq no es necesario en ningun proceso de las altas
 );
 
