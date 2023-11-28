@@ -4,6 +4,9 @@ CREATE OR REPLACE PROCEDURE alta_domicilio(
     in p_estado_domicilio varchar(15),
     in p_monto_domicilio integer,
     in p_num_cuenta integer
+    in p_fecha_alta_domicilio DATE,
+    in p_fecha_baja_domicilio DATE,
+    in p_causa_baja_domicilio varchar(100)
 )
 LANGUAGE plpgsql
 AS &&
@@ -38,14 +41,20 @@ begin
         direccion,
 	    estado_domicilio,
 	    monto_domicilio,
-	    num_cuenta
+	    num_cuenta,
+        fecha_alta_domicilio,
+        fecha_baja_domicilio,
+        causa_baja_domicilio
     )
     values(
         p_tipo_domicilio,
         p_direccion,
         p_estado_domicilio,
         p_monto_domicilio,
-        p_num_cuenta
+        p_num_cuenta,
+        p_fecha_alta_domicilio,
+        p_fecha_baja_domicilio,
+        p_causa_baja_domicilio
     );
 
     insert into accion(
