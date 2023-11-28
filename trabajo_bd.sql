@@ -88,6 +88,7 @@ CREATE TABLE cuenta(
 CREATE TABLE domicilio(
 	id_domicilio INTEGER not null,
 	tipo_domicilio varchar(30),
+    direccion varchar(50),
 	estado_domicilio varchar(15),
 	monto_domicilio INTEGER,
 	num_cuenta INTEGER not null
