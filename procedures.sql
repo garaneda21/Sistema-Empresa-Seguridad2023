@@ -32,5 +32,42 @@ begin
         );
         return;
     end if;
+
+    insert into domicilio(
+        tipo_domicilio,
+        direccion,
+	    estado_domicilio,
+	    monto_domicilio,
+	    num_cuenta
+    )
+    values(
+        p_tipo_domicilio,
+        p_direccion,
+        p_estado_domicilio,
+        p_monto_domicilio,
+        p_num_cuenta
+    );
+
+    insert into accion(
+        destinatario_accion,
+	    parametros,
+	    accion_realizar,
+	    comentarios,
+	    motivo_baja,
+	    fecha_ini_accion,
+	    fecha_ter_accion,
+	    estado_accion
+    )
+    values(
+        p_num_cuenta,
+        'Direccion de domicilio: ' || p_direccion,
+        'Alta de domicilio',
+        'Domicilio registrado correctamente',
+        NULL,
+        CURRENT_DATE,
+        CURRENT_DATE,
+        'Exito'
+    );
+
 end;
 $$;
