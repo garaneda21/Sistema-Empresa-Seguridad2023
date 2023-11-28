@@ -1,3 +1,4 @@
+--prueba 1
 CREATE OR REPLACE PROCEDURE alta_domicilio(
     in p_tipo_domicilio varchar(30),
     in p_direccion varchar(50),
