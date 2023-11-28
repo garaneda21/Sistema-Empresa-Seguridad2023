@@ -7,11 +7,6 @@ CREATE TABLE territorio(
 	divisa varchar(15)
 );
 
-CREATE TABLE ciclo_territorio(
-	id_territorio INTEGER not null,
-	id_ciclo INTEGER not null
-);
-
 CREATE TABLE sucursal(
 	id_territorio INTEGER not null,
 	id_sucursal INTEGER not null,
@@ -74,7 +69,7 @@ CREATE TABLE cliente(
 	apellido_paterno varchar(30),
 	apellido_materno varchar(30),
 	tipo_cliente varchar(10),
-	estado_cliente varchar(10)
+	estado_cliente varchar(10),
     fecha_alta_cliente DATE,
     fecha_baja_cliente DATE,
     causa_baja_cliente varchar(100),
@@ -103,7 +98,7 @@ CREATE TABLE domicilio(
 	num_cuenta INTEGER not null,
     fecha_alta_domicilio DATE,
     fecha_baja_domicilio DATE,
-    causa_baja_domicilio varchar(100),
+    causa_baja_domicilio varchar(100)
 );
 
 CREATE TABLE contrato(
