@@ -56,7 +56,9 @@ CREATE TABLE articulo(
 	id_articulo_pack INTEGER not null,
 	id_articulo INTEGER not null,
 	nom_articulo varchar(30),
-	estado_articulo
+	estado_articulo varchar(15),
+    usa_simcard boolean,
+    precio float
 );
 
 CREATE TABLE stock_articulo(
@@ -72,7 +74,7 @@ CREATE TABLE cliente(
 	apellido_paterno varchar(30),
 	apellido_materno varchar(30),
 	tipo_cliente varchar(10),
-	estado_cliente varchar(10)	
+	estado_cliente varchar(10)
 );
 
 CREATE TABLE cuenta(
