@@ -1,2 +1,4 @@
 * En la Tabla Territorio, se considerara al Atributo Terrirorio Padre
 Solo como FK
+
+* Se puede usar SERIAL para autoincrementar los pk's
