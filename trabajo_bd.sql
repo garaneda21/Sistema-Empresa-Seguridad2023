@@ -75,6 +75,10 @@ CREATE TABLE cliente(
 	apellido_materno varchar(30),
 	tipo_cliente varchar(10),
 	estado_cliente varchar(10)
+    fecha_alta_cliente DATE,
+    fecha_baja_cliente DATE,
+    causa_baja varchar(100),
+    telefono integer
 );
 
 CREATE TABLE cuenta(
