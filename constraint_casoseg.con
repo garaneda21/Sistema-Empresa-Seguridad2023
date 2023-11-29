@@ -1,5 +1,5 @@
 -- PK
-ALTER TABLE territorio ADD CONSTRAINT pk_territorio PRIMARY KEY (id_territorio, id_territorio_padre);
+ALTER TABLE territorio ADD CONSTRAINT pk_territorio PRIMARY KEY (id_territorio);
 ALTER TABLE sucursal ADD CONSTRAINT pk_sucursal PRIMARY KEY (id_sucursal);
 ALTER TABLE vendedor ADD CONSTRAINT pk_vendedor PRIMARY KEY (id_vendedor);
 ALTER TABLE vendedor_domicilio ADD CONSTRAINT pk_vendedordom PRIMARY KEY (id_vendedor, id_domicilio);
@@ -21,6 +21,7 @@ ALTER TABLE plan ADD CONSTRAINT pk_plan PRIMARY KEY (id_plan);
 ALTER TABLE plan_articulo_ligado ADD CONSTRAINT pk_planarticulo_li PRIMARY KEY (id_plan, id_articulo);
 
 -- FK
+ALTER TABLE territorio ADD CONSTRAINT fk_territorio FOREIGN KEY (cedula) REFERENCES territorio(id_territorio_padre);
 ALTER TABLE cuenta ADD CONSTRAINT fk_cuenta_cliente FOREIGN KEY (cedula) REFERENCES cliente(cedula);
 ALTER TABLE accion_cliente ADD CONSTRAINT fk_accliente_cliente FOREIGN KEY (cedula) REFERENCES cliente(cedula);
 ALTER TABLE accion_cliente ADD CONSTRAINT fk_accliente_accion FOREIGN KEY (id_accion) REFERENCES accion(id_accion);
