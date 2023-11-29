@@ -14,6 +14,7 @@ CREATE TABLE ciclo_facturacion(
 );
 
 -- el ciclo se relacionara con cuenta y no con territorio por lo que se elimino la tabla ciclo_territorio
+-- gerardo: los ciclos igual pertenecen a un pais, no afecta en mucho pero lo dejo como nota
 
 CREATE TABLE sucursal(
 	id_territorio INTEGER not null,
@@ -43,6 +44,7 @@ CREATE TABLE simcard(
 );
 
 -- Gerardo: tengo duda con esto, en 'en queeee :OO'
+-- el profe nos puso tics rojos en la observacion 
 CREATE TABLE contrata_articulo(
 	id_domicilio INTEGER not null,
 	id_articulo INTEGER not null,
@@ -66,8 +68,8 @@ CREATE TABLE articulo(
 );
 
 -- Gerardo: Añadí esta tabla para arreglar el mucho es a muchos
-CREATE TABLE pack(
-	id_articulo_pack INTEGER NOT NULL, -- PK/FK			--preguntar al profe(??)
+CREATE TABLE pack_de_articulos(
+	id_articulo_pack INTEGER NOT NULL, -- PK/FK			--preguntar al profe(??) gerardo: igual  si, en el cuaderno lo tena como pk/fk, si no me equivoco no deberian existir null's aqui
 	id_articulo_contenido INTEGER NOT NULL --PK/FK
 );
 
@@ -86,6 +88,7 @@ CREATE TABLE stock_articulo(
 --agregada fk territorio
 CREATE TABLE cliente(
 	cedula INTEGER not null,
+	id_territorio integer not null
 	tipo_cedula varchar(15),
 	nombres varchar(40),
 	apellido_paterno varchar(30),
@@ -96,7 +99,6 @@ CREATE TABLE cliente(
     fecha_baja_cliente DATE,
     causa_baja_cliente varchar(100),
     telefono integer,
-	id_territorio integer not null
 );
 
 --agregada fk territorio
@@ -140,7 +142,7 @@ CREATE TABLE accion_cliente(
 CREATE TABLE accion(
 	id_accion INTEGER not null,
 	destinatario_accion INTEGER,
-	parametros varchar(1000),
+	parametros varchar(10000), -- Yo diria que mas grande todabia xdxdxd lo voy a dejar en 10k
 	accion_realizar varchar(30),
 	comentarios varchar(500),
 	fecha_ini_accion DATE,
