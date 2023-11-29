@@ -12,3 +12,5 @@ ALTER SEQUENCE table_name_id_seq
 OWNED BY table_name.id;
 
 * ¿Colocar Tabla Concepto facturable para que no moleste al ingresar datos?
+
+* Como Relacionar Precio con contrato 
