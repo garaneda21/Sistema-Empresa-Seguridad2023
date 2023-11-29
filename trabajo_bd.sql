@@ -7,19 +7,13 @@ CREATE TABLE territorio(
 	divisa varchar(15)
 );
 
--- modelar como id_ciclo, dia_inicio, dia_termino
--- asi se puede ingresar un siclo que empieze los dias 3 de cada mes y termine los dias 2 por ejemplo
--- tambien en las observaciones sale que nos falto crear una entitad periodo que se relacione con esta,
--- no creo que sea nesesario agregarla, pero para mas orden se podria.
-CREATE TABLE ciclo_facturacion(			-- debe ir el ciclo
+CREATE TABLE ciclo_facturacion(
 	id_ciclo INTEGER not null,
-	ciclo_fact varchar(50)
+	dia_inicio integer,
+	dia_termino integer
 );
 
-CREATE TABLE ciclo_territorio(			-- este igual
-	id_territorio INTEGER not null,
-	id_ciclo INTEGER not null
-);
+-- el ciclo se relacionara con cuenta y no con territorio por lo que se elimino la tabla ciclo_territorio
 
 CREATE TABLE sucursal(
 	id_territorio INTEGER not null,
@@ -27,12 +21,12 @@ CREATE TABLE sucursal(
 	dir_sucursal varchar(30)
 );
 
+-- se eliminó el atributo comision
 CREATE TABLE vendedor(
 	id_vendedor INTEGER not null,
 	nombres varchar(30),
 	apellido_paterno varchar(30),
 	apellido_materno varchar(30),
-	comision DECIMAL,
 	id_sucursal INTEGER not null
 );
 
@@ -48,7 +42,7 @@ CREATE TABLE simcard(
 	id_sucursal INTEGER not null
 );
 
--- Gerardo: tengo duda con esto, en
+-- Gerardo: tengo duda con esto, en 'en queeee :OO'
 CREATE TABLE contrata_articulo(
 	id_domicilio INTEGER not null,
 	id_articulo INTEGER not null,
@@ -62,21 +56,20 @@ CREATE TABLE contrata_articulo(
 	cobro_mensual INTEGER
 );
 
+--eliminado atributo id_articulo_pack
 CREATE TABLE articulo(
-	id_articulo_pack INTEGER not null, -- Gerardo: este no deberia ir
 	id_articulo INTEGER not null,
 	nom_articulo varchar(30),
 	estado_articulo varchar(15),
     usa_simcard boolean,
-    -- precio float		este no deberia ir
+--	id_precio integer not null 		mismo problema que en la tabla cuenta
 );
 
 -- Gerardo: Añadí esta tabla para arreglar el mucho es a muchos
 CREATE TABLE pack(
-	id_articulo_pack INTEGER NOT NULL, -- PK/FK
+	id_articulo_pack INTEGER NOT NULL, -- PK/FK			--preguntar al profe(??)
 	id_articulo_contenido INTEGER NOT NULL --PK/FK
 );
--- Gerardo: Añadí esta tabla
 
 -- Gerardo: ¿lo relacionamos con Articulos, Domicilio. Contrato, Planes?
 CREATE TABLE precio(				-- deberia ir esta tabla
@@ -90,6 +83,7 @@ CREATE TABLE stock_articulo(
 	stock_articulo INTEGER
 );
 
+--agregada fk territorio
 CREATE TABLE cliente(
 	cedula INTEGER not null,
 	tipo_cedula varchar(15),
@@ -101,20 +95,24 @@ CREATE TABLE cliente(
     fecha_alta_cliente DATE,
     fecha_baja_cliente DATE,
     causa_baja_cliente varchar(100),
-    telefono integer
+    telefono integer,
+	id_territorio integer not null
 );
 
+--agregada fk territorio
 CREATE TABLE cuenta(
 	num_cuenta INTEGER not null,
 	cedula INTEGER not null,
 	id_ciclo INTEGER not null,
 	dir_facturacion varchar(40),
+	tipo_facturacion varchar(30),
 	correo_electronico varchar(30),
 	estado_cuenta varchar(15),
-	monto_total INTEGER, -- Gerardo: ¿Este no deberia ir?
+--	monto_totalid_precio INTEGER, 		mismo problema que con tabla cuenta
     fecha_alta_cuenta DATE,
     fecha_baja_cuenta DATE,
-    causa_baja_cuenta varchar(100)
+    causa_baja_cuenta varchar(100),
+	id_territorio integer not null
 );
 
 CREATE TABLE domicilio(
@@ -123,40 +121,32 @@ CREATE TABLE domicilio(
 	tipo_domicilio varchar(30),
     direccion varchar(50),
 	estado_domicilio varchar(15),
-	monto_domicilio INTEGER,
+--	monto_domicilio INTEGER, 			mismo problema que con tabla cuenta
     fecha_alta_domicilio DATE,
     fecha_baja_domicilio DATE,
     causa_baja_domicilio varchar(100)
+	id_contrato integer not null	--agregar fk en constraint
 );
 
--- Gerardo: En las Obs. se pide relacionar con Precio
 CREATE TABLE contrato(
 	id_contrato INTEGER not null,
-	dur_contrato time
-);
-
-CREATE TABLE descuento_articulo(
-	id_articulo INTEGER not null,
-	id_descuento INTEGER not null
+	dur_contrato time,
 );
 
 CREATE TABLE accion_cliente(
 	cedula INTEGER not null,
-	id_accion INTEGER not null,
-	-- fecha_ingreso_accion DATE 		este no deberia ir segun el profe (1)
-);
+	id_accion INTEGER not null,);
 
 CREATE TABLE accion(
 	id_accion INTEGER not null,
-	destinatario_accion INTEGER, -- Gerardo: Esto creo que no va
-	parametros varchar(100), -- Gerardo: Este debe se un varchar gigante ya que van muchos parametros concatenados
+	destinatario_accion INTEGER,
+	parametros varchar(1000),
 	accion_realizar varchar(30),
 	comentarios varchar(500),
-	motivo_baja varchar(500), --Gerardo: Este creo que no va
 	fecha_ini_accion DATE,
 	fecha_ter_accion DATE,
 	id_estado INTEGER not null,		-- conecta accion con estado_accion FK
-	fecha_ingreso_accion DATE		-- (1) aqui deberia ir
+	fecha_ingreso_accion DATE
 );
 
 CREATE TABLE estado_accion(			-- debe ir 
@@ -172,18 +162,11 @@ CREATE TABLE contrata_plan(
 	id_contrato INTEGER not null
 );
 
-/*CREATE TABLE descuento(				-- podriamos quitarla... pq no es necesario en ningun proceso de las altas
-	id_descuento INTEGER not null,
-	porcentaje DECIMAL,
-	motivo_descuento varchar(50)
-);*/
-
 CREATE TABLE plan(
 	id_plan INTEGER not null,
 	nombre_plan varchar(30),
 	estado_plan varchar(15),
-	precio_plan INTEGER, -- lo mismo de la entidad precio
---	id_conc_fact INTEGER not null		-- podriamos quitarla... pq no es necesario en ningun proceso de las altas
+--	precio_plan INTEGER 		 lo mismo de la tabla cuenta
 );
 
 CREATE TABLE plan_articulo_ligado(
