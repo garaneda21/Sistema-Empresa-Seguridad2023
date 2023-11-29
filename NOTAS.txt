@@ -14,3 +14,5 @@ OWNED BY table_name.id;
 * ¿Colocar Tabla Concepto facturable para que no moleste al ingresar datos?
 
 * Como Relacionar Precio con contrato 
+
+* ALta 9, Deberia domicilio llevar pais?
