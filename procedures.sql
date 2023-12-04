@@ -1,13 +1,13 @@
 --prueba 1
 CREATE OR REPLACE PROCEDURE alta_domicilio(
+    in p_num_cuenta integer,
     in p_tipo_domicilio varchar(30),
     in p_direccion varchar(50),
     in p_estado_domicilio varchar(15),
-    in p_monto_domicilio integer,
-    in p_num_cuenta integer
     in p_fecha_alta_domicilio DATE,
     in p_fecha_baja_domicilio DATE,
     in p_causa_baja_domicilio varchar(100)
+    in p_id_contrato integer
 )
 LANGUAGE plpgsql
 AS &&
@@ -19,43 +19,43 @@ begin
 	        parametros,
 	        accion_realizar,
 	        comentarios,
-	        motivo_baja,
 	        fecha_ini_accion,
 	        fecha_ter_accion,
-	        estado_accion
+	        id_estado,
+            fecha_ingreso_accion
         )
         values(
             p_num_cuenta,
             'Direccion de domicilio: ' || coalesce(p_direccion, 'No especificado'),
             'Alta de domicilio',
             'No se informa la direccion',
-            NULL,
             CURRENT_DATE,
             NULL,
-            'ERROR'
+            --aqui deberia ir el id_estado correspondiente a 'Error'
+            --fecha ingreso no seria redundante?
         );
         return;
     end if;
 
     insert into domicilio(
+        num_cuenta,
         tipo_domicilio,
         direccion,
-	    estado_domicilio,
-	    monto_domicilio,
-	    num_cuenta,
+        estado_domicilio,
         fecha_alta_domicilio,
         fecha_baja_domicilio,
-        causa_baja_domicilio
+        causa_baja_domicilio,
+        id_contrato
     )
     values(
+        p_num_cuenta,
         p_tipo_domicilio,
         p_direccion,
         p_estado_domicilio,
-        p_monto_domicilio,
-        p_num_cuenta,
         p_fecha_alta_domicilio,
         p_fecha_baja_domicilio,
-        p_causa_baja_domicilio
+        p_causa_baja_domicilio,
+        p_id_contrato
     );
 
     insert into accion(
@@ -63,20 +63,20 @@ begin
 	    parametros,
 	    accion_realizar,
 	    comentarios,
-	    motivo_baja,
 	    fecha_ini_accion,
 	    fecha_ter_accion,
-	    estado_accion
+	    id_estado,
+        --fecha_ingreso_accion
     )
     values(
         p_num_cuenta,
         'Direccion de domicilio: ' || p_direccion,
         'Alta de domicilio',
         'Domicilio registrado correctamente',
-        NULL,
         CURRENT_DATE,
         CURRENT_DATE,
-        'Exito'
+        --aqui deberia ir el id_estado correspondiente a 'Exito'
+        CURRENT_DATE
     );
 
 end;
