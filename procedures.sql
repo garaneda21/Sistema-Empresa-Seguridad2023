@@ -1,4 +1,4 @@
---prueba 1
+--alta domicilio
 CREATE OR REPLACE PROCEDURE alta_domicilio(
     in p_num_cuenta integer,
     in p_tipo_domicilio varchar(30),
@@ -13,6 +13,7 @@ LANGUAGE plpgsql
 AS &&
 begin
 
+    --prueba 1
     if p_direccion is null or trim(p_direccion) = '' then
         insert into accion(
             destinatario_accion,
@@ -34,7 +35,28 @@ begin
             --aqui deberia ir el id_estado correspondiente a 'Error'
             --fecha ingreso no seria redundante?
         );
-        return;
+    --prueba 4
+    else if p_id_contrato is null then
+        insert into accion(
+            destinatario_accion,
+	        parametros,
+	        accion_realizar,
+	        comentarios,
+	        fecha_ini_accion,
+	        fecha_ter_accion,
+	        id_estado,
+            fecha_ingreso_accion
+        )
+        values(
+            p_num_cuenta,
+            'Id_contrato: ' || coalesce(p_id_contrato, 'No especificado'),
+            'Alta de domicilio',
+            'No se informa el contrato',
+            CURRENT_DATE,
+            NULL,
+            --aqui deberia ir el id_estado correspondiente a 'Error'
+            --fecha ingreso no seria redundante?
+        );
     end if;
 
     insert into domicilio(
