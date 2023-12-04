@@ -15,7 +15,7 @@ CREATE TABLE ciclo_facturacion(
 
 CREATE TABLE sucursal(
 	id_territorio INTEGER not null,		--FK
-	id_sucursal INTEGER not null,		--PK/FK
+	id_sucursal INTEGER not null,		--PK
 	dir_sucursal varchar(30)
 );
 
