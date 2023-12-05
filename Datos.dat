@@ -7,6 +7,21 @@ INSERT INTO territorio VALUES (1, 21, 'Biobío', 'Región', 0, 'Peso Chileno');
 INSERT INTO territorio VALUES (1, 22, 'La Araucanía', 'Región', 0, 'Peso Chileno');
 INSERT INTO territorio VALUES (1, 23, 'Valdivia', 'Provincia', 0, 'Peso Chileno');
 
+INSERT INTO territorio VALUES (NULL, 4, 'Argentina', 'País', 0, 'Peso Argentino');
+INSERT INTO territorio VALUES (4, 5, 'Buenos Aires', 'Provincia', 0, 'Peso Argentino');
+INSERT INTO territorio VALUES (5, 6, 'CABA', 'Ciudad Autónoma', 0, 'Peso Argentino');
+INSERT INTO territorio VALUES (4, 7, 'Córdoba', 'Provincia', 0, 'Peso Argentino');
+
+INSERT INTO territorio VALUES (NULL, 8, 'Brasil', 'País', 0, 'Real Brasileño');
+INSERT INTO territorio VALUES (8, 9, 'São Paulo', 'Estado', 0, 'Real Brasileño');
+INSERT INTO territorio VALUES (8, 10, 'Rio de Janeiro', 'Estado', 0, 'Real Brasileño');
+INSERT INTO territorio VALUES (8, 11, 'Brasilia', 'Distrito Federal', 0, 'Real Brasileño');
+
+INSERT INTO territorio VALUES (NULL, 12, 'México', 'País', 0, 'Peso Mexicano');
+INSERT INTO territorio VALUES (12, 13, 'Ciudad de México', 'Ciudad', 0, 'Peso Mexicano');
+INSERT INTO territorio VALUES (12, 14, 'Jalisco', 'Estado', 0, 'Peso Mexicano');
+INSERT INTO territorio VALUES (12, 15, 'Nuevo León', 'Estado', 0, 'Peso Mexicano');
+
 INSERT INTO territorio VALUES (NULL, 16, 'Colombia', 'País', 0, 'Peso Colombiano');
 INSERT INTO territorio VALUES (16, 17, 'Bogotá', 'Distrito Capital', 0, 'Peso Colombiano');
 INSERT INTO territorio VALUES (16, 18, 'Antioquia', 'Departamento', 0, 'Peso Colombiano');
