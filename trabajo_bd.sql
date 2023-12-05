@@ -56,7 +56,7 @@ CREATE TABLE articulo(
 	id_articulo INTEGER not null,		--PK
 	nom_articulo varchar(30),
 	estado_articulo varchar(15),
-    usa_simcard boolean,
+    usa_simcard boolean
 );
 
 CREATE TABLE pack_de_articulos(
@@ -65,7 +65,7 @@ CREATE TABLE pack_de_articulos(
 );
 
 CREATE TABLE precio(
-	id precio INTEGER not null,		--PK
+	id_precio INTEGER not null,		--PK
 	precio float
 );
 
@@ -77,7 +77,7 @@ CREATE TABLE stock_articulo(
 
 CREATE TABLE cliente(
 	cedula INTEGER not null,		--PK
-	id_territorio integer not null		--FK
+	id_territorio integer not null,		--FK
 	tipo_cedula varchar(15),
 	nombres varchar(40),
 	apellido_paterno varchar(30),
@@ -85,7 +85,7 @@ CREATE TABLE cliente(
 	tipo_cliente varchar(10),
 	estado_cliente varchar(10),
     fecha_alta_cliente DATE,
-    telefono integer,
+    telefono integer
 );
 
 CREATE TABLE cuenta(
@@ -113,12 +113,13 @@ CREATE TABLE domicilio(
 
 CREATE TABLE contrato(
 	id_contrato INTEGER not null,		--PK
-	dur_contrato time,
+	dur_contrato time
 );
 
 CREATE TABLE accion_cliente(
 	cedula INTEGER not null,		--PK/FK
-	id_accion INTEGER not null,);		--PK/FK
+	id_accion INTEGER not null		--PK/FK
+);
 
 CREATE TABLE accion(
 	id_accion INTEGER not null,		--PK
@@ -148,7 +149,7 @@ CREATE TABLE contrata_plan(
 CREATE TABLE plan(
 	id_plan INTEGER not null,		--PK
 	nombre_plan varchar(30),
-	estado_plan varchar(15),
+	estado_plan varchar(15)
 );
 
 CREATE TABLE plan_articulo_ligado(
