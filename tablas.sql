@@ -113,7 +113,7 @@ CREATE TABLE domicilio(
 
 CREATE TABLE contrato(
 	id_contrato INTEGER not null,		--PK
-	dur_contrato time
+	dur_contrato varchar(50)
 );
 
 CREATE TABLE accion_cliente(
