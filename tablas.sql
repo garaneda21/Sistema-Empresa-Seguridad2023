@@ -124,7 +124,7 @@ CREATE TABLE accion_cliente(
 
 CREATE TABLE accion(
 	id_accion INTEGER not null,		--PK
-	id_accion_realizar INTEGER NOT NULL	--FK
+	id_accion_realizar INTEGER NOT NULL,	--FK
 	parametros_concat varchar(10000),
 	fecha_ini_accion DATE,
 	fecha_ter_accion DATE,
@@ -136,14 +136,14 @@ CREATE TABLE accion(
 CREATE TABLE accion_disponible(
 	id_accion_realizar INTEGER NOT NULL, --PK
 	nom_accion_realizar VARCHAR(100),
-	descripcion_accion VARCAHR(5000)
+	descripcion_accion VARCHAR(5000)
 );
---TABLAS DE ACCIONES IMPORTANTE PARA SISTEMA
 
 CREATE TABLE estado_accion(
 	id_estado INTEGER not null,		--PK
 	descripcion_estado varchar(1000)	
 );
+--TABLAS DE ACCIONES IMPORTANTE PARA SISTEMA
 
 CREATE TABLE contrata_plan(
 	id_plan INTEGER not null,		--PK/FK
