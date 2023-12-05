@@ -127,9 +127,9 @@ CREATE TABLE accion(
 	nom_accion_realizar varchar(100),
 	fecha_ini_accion DATE,
 	fecha_ter_accion DATE,
-	fecha_ingreso_accion DATE
+	fecha_ingreso_accion DATE,
 	id_estado INTEGER not null,		--FK
-	comentarios varchar(10000),
+	comentarios varchar(10000)
 );
 
 CREATE TABLE estado_accion(
