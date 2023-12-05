@@ -3,6 +3,19 @@
 INSERT INTO territorio VALUES (NULL, 1, 'Chile', 'País', 0, 'Peso Chileno');
 INSERT INTO territorio VALUES (1, 2, 'Región Metropolitana', 'Región', 0, 'Peso Chileno');
 INSERT INTO territorio VALUES (1, 3, 'Valparaíso', 'Región', 0, 'Peso Chileno');
+INSERT INTO territorio VALUES (1, 21, 'Biobío', 'Región', 0, 'Peso Chileno');
+INSERT INTO territorio VALUES (1, 22, 'La Araucanía', 'Región', 0, 'Peso Chileno');
+INSERT INTO territorio VALUES (1, 23, 'Valdivia', 'Provincia', 0, 'Peso Chileno');
+
+INSERT INTO territorio VALUES (NULL, 16, 'Colombia', 'País', 0, 'Peso Colombiano');
+INSERT INTO territorio VALUES (16, 17, 'Bogotá', 'Distrito Capital', 0, 'Peso Colombiano');
+INSERT INTO territorio VALUES (16, 18, 'Antioquia', 'Departamento', 0, 'Peso Colombiano');
+INSERT INTO territorio VALUES (16, 19, 'Valle del Cauca', 'Departamento', 0, 'Peso Colombiano');
+
+INSERT INTO territorio VALUES (NULL, 24, 'Perú', 'País', 0, 'Sol Peruano');
+INSERT INTO territorio VALUES (24, 25, 'Lima', 'Departamento', 0, 'Sol Peruano');
+INSERT INTO territorio VALUES (24, 26, 'Arequipa', 'Departamento', 0, 'Sol Peruano');
+INSERT INTO territorio VALUES (24, 27, 'Cusco', 'Departamento', 0, 'Sol Peruano');
 
 -- Ciclo Facturación
 INSERT INTO ciclo_facturacion VALUES (1, 1, 30);
