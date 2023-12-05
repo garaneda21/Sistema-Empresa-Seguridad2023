@@ -47,6 +47,16 @@ INSERT INTO stock_articulo VALUES (2, 2, 30);
 -- Cliente
 INSERT INTO cliente VALUES (123456789, 2, 'RUT', 'Carlos', 'González', 'Pérez', 'Particular', 'Activo', '2023-01-01', 987654321);
 INSERT INTO cliente VALUES (987654321, 3, 'Cédula', 'Ana', 'Martínez', 'López', 'Empresarial', 'Inactivo', '2023-02-01', 123456789);
+INSERT INTO cliente VALUES (111222333, 1, 'DNI', 'Laura', 'García', 'Fernández', 'Particular', 'Activo', '2023-03-01', 555666777);
+INSERT INTO cliente VALUES (444555666, 2, 'RUT', 'José', 'Martín', 'Sánchez', 'Empresarial', 'Activo', '2023-04-01', 888999000);
+INSERT INTO cliente VALUES (777888999, 3, 'Cédula', 'Sofía', 'Gómez', 'López', 'Particular', 'Inactivo', '2023-05-01', 111222333);
+INSERT INTO cliente VALUES (888999000, 1, 'DNI', 'Alejandro', 'Vega', 'Muñoz', 'Empresarial', 'Activo', '2023-06-01', 444555666);
+INSERT INTO cliente VALUES (123987456, 2, 'RUT', 'Isabel', 'Hernández', 'Pérez', 'Particular', 'Inactivo', '2023-07-01', 777888999);
+INSERT INTO cliente VALUES (555666777, 3, 'Cédula', 'Carlos', 'Serrano', 'Rodríguez', 'Particular', 'Activo', '2023-08-01', 888999000);
+INSERT INTO cliente VALUES (999888777, 1, 'DNI', 'Marina', 'Delgado', 'Gutiérrez', 'Empresarial', 'Activo', '2023-09-01', 123987456);
+INSERT INTO cliente VALUES (666555444, 2, 'RUT', 'Ricardo', 'Moreno', 'Castañeda', 'Particular', 'Inactivo', '2023-10-01', 555666777);
+INSERT INTO cliente VALUES (111000999, 3, 'Cédula', 'Elena', 'Fernández', 'Jiménez', 'Empresarial', 'Activo', '2023-11-01', 999888777);
+INSERT INTO cliente VALUES (777666555, 1, 'DNI', 'Pedro', 'Mendoza', 'Gómez', 'Particular', 'Activo', '2023-12-01', 666555444);
 
 -- Cuenta
 INSERT INTO cuenta VALUES (1, 123456789, 1, 'Av. Providencia 123', 'Prepago', 'correo@cliente.com', 'Activa', '2023-01-01', 2);
