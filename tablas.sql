@@ -123,14 +123,13 @@ CREATE TABLE accion_cliente(
 
 CREATE TABLE accion(
 	id_accion INTEGER not null,		--PK
-	destinatario_accion INTEGER,
-	parametros varchar(10000),
-	accion_realizar varchar(100),
-	comentarios varchar(1000),
+	parametros_concat varchar(10000),
+	nom_accion_realizar varchar(100),
 	fecha_ini_accion DATE,
 	fecha_ter_accion DATE,
-	id_estado INTEGER not null,		--FK
 	fecha_ingreso_accion DATE
+	id_estado INTEGER not null,		--FK
+	comentarios varchar(10000),
 );
 
 CREATE TABLE estado_accion(
