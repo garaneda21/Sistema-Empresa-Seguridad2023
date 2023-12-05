@@ -16,6 +16,7 @@ ALTER TABLE domicilio ADD CONSTRAINT pk_domicilio PRIMARY KEY (id_domicilio);
 ALTER TABLE contrato ADD CONSTRAINT pk_contrato PRIMARY KEY (id_contrato);
 ALTER TABLE accion_cliente ADD CONSTRAINT pk_accioncliente PRIMARY KEY (cedula, id_accion);
 ALTER TABLE accion ADD CONSTRAINT pk_accion PRIMARY KEY (id_accion);
+ALTER TABLE accion_disponible ADD CONSTRAINT pk_accion_realizar PRIMARY KEY (pk_accion_realizar);
 ALTER TABLE estado_accion ADD CONSTRAINT pk_estadoaccion PRIMARY KEY (id_estado);
 ALTER TABLE contrata_plan ADD CONSTRAINT pk_contplan PRIMARY KEY (id_plan, id_domicilio, id_contrato);
 ALTER TABLE plan ADD CONSTRAINT pk_plan PRIMARY KEY (id_plan);
@@ -47,6 +48,7 @@ ALTER TABLE domicilio ADD CONSTRAINT fk_domicilio_contrato FOREIGN KEY (id_contr
 ALTER TABLE accion_cliente ADD CONSTRAINT fk_accliente_cliente FOREIGN KEY (cedula) REFERENCES cliente(cedula);
 ALTER TABLE accion_cliente ADD CONSTRAINT fk_accliente_accion FOREIGN KEY (id_accion) REFERENCES accion(id_accion);
 ALTER TABLE accion ADD CONSTRAINT fk_accion_estado FOREIGN KEY (id_estado) REFERENCES estado_accion(id_estado);
+ALTER TABLE accion ADD CONSTRAINT fk_accion_realizar FOREIGN KEY (id_accion_realizar) REFERENCES accion_disponible(id_accion_realizar);
 ALTER TABLE contrata_plan ADD CONSTRAINT fk_contrata_plan FOREIGN KEY (id_plan) REFERENCES plan(id_plan);
 ALTER TABLE contrata_plan ADD CONSTRAINT fk_contrata_plan_dom FOREIGN KEY (id_domicilio) REFERENCES domicilio(id_domicilio);
 ALTER TABLE contrata_plan ADD CONSTRAINT fk_contrata_plan_cont FOREIGN KEY (id_contrato) REFERENCES contrato(id_contrato);
