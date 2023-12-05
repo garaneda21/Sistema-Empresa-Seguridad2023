@@ -6,11 +6,11 @@ CREATE OR REPLACE PROCEDURE alta_domicilio(
     in p_estado_domicilio varchar(15),
     in p_fecha_alta_domicilio DATE,
     in p_fecha_baja_domicilio DATE,
-    in p_causa_baja_domicilio varchar(100)
+    in p_causa_baja_domicilio varchar(100),
     in p_id_contrato integer
 )
 LANGUAGE plpgsql
-AS &&
+AS $$
 begin
 
     --prueba 1
