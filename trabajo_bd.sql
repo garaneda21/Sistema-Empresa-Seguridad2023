@@ -85,8 +85,6 @@ CREATE TABLE cliente(
 	tipo_cliente varchar(10),
 	estado_cliente varchar(10),
     fecha_alta_cliente DATE,
-    fecha_baja_cliente DATE,
-    causa_baja_cliente varchar(100),
     telefono integer,
 );
 
@@ -99,8 +97,6 @@ CREATE TABLE cuenta(
 	correo_electronico varchar(30),
 	estado_cuenta varchar(15),
     fecha_alta_cuenta DATE,
-    fecha_baja_cuenta DATE,
-    causa_baja_cuenta varchar(100),
 	id_territorio integer not null		--FK
 );
 
@@ -108,12 +104,11 @@ CREATE TABLE domicilio(
 	id_domicilio INTEGER not null,		--PK
 	num_cuenta INTEGER not null,		--FK
 	tipo_domicilio varchar(30),
-    direccion varchar(50),
+    	direccion varchar(50),
 	estado_domicilio varchar(15),
-    fecha_alta_domicilio DATE,
-    fecha_baja_domicilio DATE,
-    causa_baja_domicilio varchar(100)
-	id_contrato integer not null		--FK
+    	fecha_alta_domicilio DATE,
+	id_contrato integer not null,		--FK
+	id_territorio INTEGER not null		--FK
 );
 
 CREATE TABLE contrato(
