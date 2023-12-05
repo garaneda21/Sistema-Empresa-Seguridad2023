@@ -1,10 +1,10 @@
 CREATE TABLE territorio(
 	id_territorio_padre INTEGER,		--FK
 	id_territorio INTEGER not null,		--PK
-	nom_territorio varchar(30),
-	tipo_territorio varchar(15),
+	nom_territorio varchar(100),
+	tipo_territorio varchar(100),
 	imp_territorio DECIMAL,
-	divisa varchar(15)
+	divisa varchar(100)
 );
 
 CREATE TABLE ciclo_facturacion(
@@ -16,14 +16,14 @@ CREATE TABLE ciclo_facturacion(
 CREATE TABLE sucursal(
 	id_territorio INTEGER not null,		--FK
 	id_sucursal INTEGER not null,		--PK
-	dir_sucursal varchar(30)
+	dir_sucursal varchar(100)
 );
 
 CREATE TABLE vendedor(
 	id_vendedor INTEGER not null,		--PK
-	nombres varchar(30),
-	apellido_paterno varchar(30),
-	apellido_materno varchar(30),
+	nombres varchar(100),
+	apellido_paterno varchar(100),
+	apellido_materno varchar(100),
 	id_sucursal INTEGER not null		--FK
 );
 
@@ -35,7 +35,7 @@ CREATE TABLE vendedor_domicilio(
 CREATE TABLE simcard(
 	num_imsi INTEGER not null,		--PK
 	num_celular INTEGER,
-	estado_sim varchar(15),
+	estado_sim varchar(50),
 	id_sucursal INTEGER not null		--FK
 );
 
@@ -48,14 +48,14 @@ CREATE TABLE contrata_articulo(
 	num_imsi INTEGER not null,		--FK
 	fecha_asig_sim DATE,
 	fecha_desasig_sim DATE,
-	estado_asignacion varchar(15),
+	estado_asignacion varchar(50),
 	cobro_mensual INTEGER
 );
 
 CREATE TABLE articulo(
 	id_articulo INTEGER not null,		--PK
-	nom_articulo varchar(30),
-	estado_articulo varchar(15),
+	nom_articulo varchar(50),
+	estado_articulo varchar(50),
     usa_simcard boolean
 );
 
@@ -78,12 +78,12 @@ CREATE TABLE stock_articulo(
 CREATE TABLE cliente(
 	cedula INTEGER not null,		--PK
 	id_territorio integer not null,		--FK
-	tipo_cedula varchar(15),
-	nombres varchar(40),
-	apellido_paterno varchar(30),
-	apellido_materno varchar(30),
-	tipo_cliente varchar(10),
-	estado_cliente varchar(10),
+	tipo_cedula varchar(100),
+	nombres varchar(100),
+	apellido_paterno varchar(100),
+	apellido_materno varchar(100),
+	tipo_cliente varchar(100),
+	estado_cliente varchar(100),
     fecha_alta_cliente DATE,
     telefono integer
 );
@@ -92,10 +92,10 @@ CREATE TABLE cuenta(
 	num_cuenta INTEGER not null,		--PK
 	cedula INTEGER not null,		--FK
 	id_ciclo INTEGER not null,		--FK
-	dir_facturacion varchar(40),
-	tipo_facturacion varchar(30),
-	correo_electronico varchar(30),
-	estado_cuenta varchar(15),
+	dir_facturacion varchar(100),
+	tipo_facturacion varchar(100),
+	correo_electronico varchar(100),
+	estado_cuenta varchar(100),
     fecha_alta_cuenta DATE,
 	id_territorio integer not null		--FK
 );
@@ -103,9 +103,9 @@ CREATE TABLE cuenta(
 CREATE TABLE domicilio(
 	id_domicilio INTEGER not null,		--PK
 	num_cuenta INTEGER not null,		--FK
-	tipo_domicilio varchar(30),
-    	direccion varchar(50),
-	estado_domicilio varchar(15),
+	tipo_domicilio varchar(100),
+    	direccion varchar(100),
+	estado_domicilio varchar(100),
     	fecha_alta_domicilio DATE,
 	id_contrato integer not null,		--FK
 	id_territorio INTEGER not null		--FK
@@ -125,8 +125,8 @@ CREATE TABLE accion(
 	id_accion INTEGER not null,		--PK
 	destinatario_accion INTEGER,
 	parametros varchar(10000),
-	accion_realizar varchar(30),
-	comentarios varchar(500),
+	accion_realizar varchar(100),
+	comentarios varchar(1000),
 	fecha_ini_accion DATE,
 	fecha_ter_accion DATE,
 	id_estado INTEGER not null,		--FK
@@ -135,7 +135,7 @@ CREATE TABLE accion(
 
 CREATE TABLE estado_accion(
 	id_estado INTEGER not null,		--PK
-	descripcion_estado varchar(20)	
+	descripcion_estado varchar(1000)	
 );
 
 CREATE TABLE contrata_plan(
@@ -148,8 +148,8 @@ CREATE TABLE contrata_plan(
 
 CREATE TABLE plan(
 	id_plan INTEGER not null,		--PK
-	nombre_plan varchar(30),
-	estado_plan varchar(15)
+	nombre_plan varchar(100),
+	estado_plan varchar(100)
 );
 
 CREATE TABLE plan_articulo_ligado(
