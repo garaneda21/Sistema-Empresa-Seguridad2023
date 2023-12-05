@@ -1,4 +1,3 @@
-//Aqui iran los inserts
 -- Territorio
 INSERT INTO territorio VALUES (NULL, 1, 'Chile', 'País', 0, 'Peso Chileno');
 INSERT INTO territorio VALUES (1, 2, 'Región Metropolitana', 'Región', 0, 'Peso Chileno');
@@ -32,9 +31,36 @@ INSERT INTO territorio VALUES (24, 25, 'Lima', 'Departamento', 0, 'Sol Peruano')
 INSERT INTO territorio VALUES (24, 26, 'Arequipa', 'Departamento', 0, 'Sol Peruano');
 INSERT INTO territorio VALUES (24, 27, 'Cusco', 'Departamento', 0, 'Sol Peruano');
 
+-- Cliente
+INSERT INTO cliente VALUES (123456789, 2, 'RUT', 'Carlos', 'González', 'Pérez', 'Particular', 'Activo', '2023-01-01', 987654321);
+INSERT INTO cliente VALUES (987654321, 3, 'Cédula', 'Ana', 'Martínez', 'López', 'Empresarial', 'Inactivo', '2023-02-01', 123456789);
+INSERT INTO cliente VALUES (111222333, 1, 'DNI', 'Laura', 'García', 'Fernández', 'Particular', 'Activo', '2023-03-01', 555666777);
+INSERT INTO cliente VALUES (444555666, 2, 'RUT', 'José', 'Martín', 'Sánchez', 'Empresarial', 'Activo', '2023-04-01', 888999000);
+INSERT INTO cliente VALUES (777888999, 3, 'Cédula', 'Sofía', 'Gómez', 'López', 'Particular', 'Inactivo', '2023-05-01', 111222333);
+INSERT INTO cliente VALUES (888999000, 1, 'DNI', 'Alejandro', 'Vega', 'Muñoz', 'Empresarial', 'Activo', '2023-06-01', 444555666);
+INSERT INTO cliente VALUES (123987456, 2, 'RUT', 'Isabel', 'Hernández', 'Pérez', 'Particular', 'Inactivo', '2023-07-01', 777888999);
+INSERT INTO cliente VALUES (555666777, 3, 'Cédula', 'Carlos', 'Serrano', 'Rodríguez', 'Particular', 'Activo', '2023-08-01', 888999000);
+INSERT INTO cliente VALUES (999888777, 1, 'DNI', 'Marina', 'Delgado', 'Gutiérrez', 'Empresarial', 'Activo', '2023-09-01', 123987456);
+INSERT INTO cliente VALUES (666555444, 2, 'RUT', 'Ricardo', 'Moreno', 'Castañeda', 'Particular', 'Inactivo', '2023-10-01', 555666777);
+INSERT INTO cliente VALUES (111000999, 3, 'Cédula', 'Elena', 'Fernández', 'Jiménez', 'Empresarial', 'Activo', '2023-11-01', 999888777);
+INSERT INTO cliente VALUES (777666555, 1, 'DNI', 'Pedro', 'Mendoza', 'Gómez', 'Particular', 'Activo', '2023-12-01', 666555444);
+
 -- Ciclo Facturación
 INSERT INTO ciclo_facturacion VALUES (1, 1, 30);
 INSERT INTO ciclo_facturacion VALUES (2, 15, 14);
+
+-- Cuenta
+INSERT INTO cuenta VALUES (1, 123456789, 1, 'Av. Providencia 123', 'Prepago', 'correo@cliente.com', 'Activa', '2023-01-01', 2);
+INSERT INTO cuenta VALUES (2, 987654321, 2, 'Calle Valparaíso 456', 'Postpago', 'otro@cliente.com', 'Inactiva', '2023-02-01', 3);
+
+-- Contrato
+INSERT INTO contrato VALUES (1, '24 months');
+INSERT INTO contrato VALUES (2, '12 months');
+
+
+-- Domicilio
+INSERT INTO domicilio VALUES (1, 1, 'Casa', 'Av. Las Condes 789', 'Activo', '2023-01-01', 1, 2);
+INSERT INTO domicilio VALUES (2, 2, 'Oficina', 'Calle Viña 101', 'Inactivo', '2023-02-01', 2, 3);
 
 -- Sucursal
 INSERT INTO sucursal VALUES (2, 1, 'Av. Providencia 123');
@@ -52,13 +78,16 @@ INSERT INTO vendedor_domicilio VALUES (2, 2);
 INSERT INTO simcard VALUES (123456, 987654321, 'Activa', 1);
 INSERT INTO simcard VALUES (789012, 123456789, 'Inactiva', 2);
 
+-- Articulo
+INSERT INTO articulo VALUES (1, 'Cámara de Seguridad', 'Disponible', false);
+INSERT INTO articulo VALUES (2, 'Alarma', 'Disponible', false);
+
+
+
 -- Contrata Articulo
 INSERT INTO contrata_articulo VALUES (1, 1, 1, '2023-01-01', '2023-12-31', 123456, '2023-01-01', '2023-01-31', 'Asignado', 100);
 INSERT INTO contrata_articulo VALUES (2, 2, 2, '2023-02-01', '2023-12-31', 789012, '2023-02-01', '2023-02-28', 'Asignado', 150);
 
--- Articulo
-INSERT INTO articulo VALUES (1, 'Cámara de Seguridad', 'Disponible', false);
-INSERT INTO articulo VALUES (2, 'Alarma', 'Disponible', false);
 
 -- Pack de Articulos
 INSERT INTO pack_de_articulos VALUES (1, 1);
@@ -72,31 +101,6 @@ INSERT INTO precio VALUES (2, 149.99);
 INSERT INTO stock_articulo VALUES (1, 1, 50);
 INSERT INTO stock_articulo VALUES (2, 2, 30);
 
--- Cliente
-INSERT INTO cliente VALUES (123456789, 2, 'RUT', 'Carlos', 'González', 'Pérez', 'Particular', 'Activo', '2023-01-01', 987654321);
-INSERT INTO cliente VALUES (987654321, 3, 'Cédula', 'Ana', 'Martínez', 'López', 'Empresarial', 'Inactivo', '2023-02-01', 123456789);
-INSERT INTO cliente VALUES (111222333, 1, 'DNI', 'Laura', 'García', 'Fernández', 'Particular', 'Activo', '2023-03-01', 555666777);
-INSERT INTO cliente VALUES (444555666, 2, 'RUT', 'José', 'Martín', 'Sánchez', 'Empresarial', 'Activo', '2023-04-01', 888999000);
-INSERT INTO cliente VALUES (777888999, 3, 'Cédula', 'Sofía', 'Gómez', 'López', 'Particular', 'Inactivo', '2023-05-01', 111222333);
-INSERT INTO cliente VALUES (888999000, 1, 'DNI', 'Alejandro', 'Vega', 'Muñoz', 'Empresarial', 'Activo', '2023-06-01', 444555666);
-INSERT INTO cliente VALUES (123987456, 2, 'RUT', 'Isabel', 'Hernández', 'Pérez', 'Particular', 'Inactivo', '2023-07-01', 777888999);
-INSERT INTO cliente VALUES (555666777, 3, 'Cédula', 'Carlos', 'Serrano', 'Rodríguez', 'Particular', 'Activo', '2023-08-01', 888999000);
-INSERT INTO cliente VALUES (999888777, 1, 'DNI', 'Marina', 'Delgado', 'Gutiérrez', 'Empresarial', 'Activo', '2023-09-01', 123987456);
-INSERT INTO cliente VALUES (666555444, 2, 'RUT', 'Ricardo', 'Moreno', 'Castañeda', 'Particular', 'Inactivo', '2023-10-01', 555666777);
-INSERT INTO cliente VALUES (111000999, 3, 'Cédula', 'Elena', 'Fernández', 'Jiménez', 'Empresarial', 'Activo', '2023-11-01', 999888777);
-INSERT INTO cliente VALUES (777666555, 1, 'DNI', 'Pedro', 'Mendoza', 'Gómez', 'Particular', 'Activo', '2023-12-01', 666555444);
-
--- Cuenta
-INSERT INTO cuenta VALUES (1, 123456789, 1, 'Av. Providencia 123', 'Prepago', 'correo@cliente.com', 'Activa', '2023-01-01', 2);
-INSERT INTO cuenta VALUES (2, 987654321, 2, 'Calle Valparaíso 456', 'Postpago', 'otro@cliente.com', 'Inactiva', '2023-02-01', 3);
-
--- Domicilio
-INSERT INTO domicilio VALUES (1, 1, 'Casa', 'Av. Las Condes 789', 'Activo', '2023-01-01', 1, 2);
-INSERT INTO domicilio VALUES (2, 2, 'Oficina', 'Calle Viña 101', 'Inactivo', '2023-02-01', 2, 3);
-
--- Contrato
-INSERT INTO contrato VALUES (1, '24 months');
-INSERT INTO contrato VALUES (2, '12 months');
 
 -- Accion Cliente (Dejar vacía)
 
@@ -107,13 +111,15 @@ INSERT INTO estado_accion VALUES (0, 'Pendiente');
 INSERT INTO estado_accion VALUES (1, 'Procesada');
 INSERT INTO estado_accion VALUES (2, 'Error');
 
+-- Plan
+INSERT INTO plan VALUES (1, 'Plan Básico', 'Vigente');
+INSERT INTO plan VALUES (2, 'Plan Avanzado', 'Vigente');
+
+
 -- Contrata Plan
 INSERT INTO contrata_plan VALUES (1, 1, '2023-01-01', '2023-12-31', 1);
 INSERT INTO contrata_plan VALUES (2, 2, '2023-02-01', '2023-12-31', 2);
 
--- Plan
-INSERT INTO plan VALUES (1, 'Plan Básico', 'Vigente');
-INSERT INTO plan VALUES (2, 'Plan Avanzado', 'Vigente');
 
 -- Plan Articulo Ligado
 INSERT INTO plan_articulo_ligado VALUES (1, 1);
