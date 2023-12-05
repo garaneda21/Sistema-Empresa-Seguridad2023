@@ -58,6 +58,28 @@ begin
                 2,
                 CURRENT_DATE
             );
+        --prueba 5
+        when p_tipo_domicilio is null or trim(p_tipo_domicilio) = '' then
+            insert into accion(
+                destinatario_accion,
+	            parametros,
+	            accion_realizar,
+	            comentarios,
+	            fecha_ini_accion,
+	            fecha_ter_accion,
+	            id_estado,
+                fecha_ingreso_accion
+            )
+            values(
+                p_num_cuenta,
+                'tipo de domicilio: ' || coalesce(p_id_contrato, 'No especificado'),
+                'Alta de domicilio',
+                'No se informa el tipo de domicilio',
+                CURRENT_DATE,
+                NULL,
+                2,
+                CURRENT_DATE
+            );
     end case;
 
     insert into domicilio(
