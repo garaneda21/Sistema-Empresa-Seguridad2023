@@ -14,10 +14,11 @@ BEGIN
 			WHEN 0 THEN 
 				-- accion 0
 				RAISE NOTICE 'accion[%] ejecuta alta cuenta existente', reg.id_accion;
-				CALL alta_domicilio_cuenta_existente(reg.parametros_concat);
+				CALL alta_domicilio_cuenta_existente(reg.parametros_concat,reg.id_accion);
 			WHEN 1 THEN 
 				-- accion 1
 				RAISE NOTICE 'accion[%] ejecuta alta cuenta nueva', reg.id_accion;
+				CALL alta_domicilio_cuenta_nueva(reg.parametros_concat,reg.id_accion);
 			WHEN 2 THEN 
 				-- accion 2
 				RAISE NOTICE 'accion[%] ejecuta alta nuevo cliente', reg.id_accion;
