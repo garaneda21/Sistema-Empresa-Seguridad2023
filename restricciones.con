@@ -16,7 +16,7 @@ ALTER TABLE domicilio ADD CONSTRAINT pk_domicilio PRIMARY KEY (id_domicilio);
 ALTER TABLE contrato ADD CONSTRAINT pk_contrato PRIMARY KEY (id_contrato);
 ALTER TABLE accion_cliente ADD CONSTRAINT pk_accioncliente PRIMARY KEY (cedula, id_accion);
 ALTER TABLE accion ADD CONSTRAINT pk_accion PRIMARY KEY (id_accion);
-ALTER TABLE accion_disponible ADD CONSTRAINT pk_accion_realizar PRIMARY KEY (pk_accion_realizar);
+ALTER TABLE accion_disponible ADD CONSTRAINT pk_accion_realizar PRIMARY KEY (id_accion_realizar);
 ALTER TABLE estado_accion ADD CONSTRAINT pk_estadoaccion PRIMARY KEY (id_estado);
 ALTER TABLE contrata_plan ADD CONSTRAINT pk_contplan PRIMARY KEY (id_plan, id_domicilio, id_contrato);
 ALTER TABLE plan ADD CONSTRAINT pk_plan PRIMARY KEY (id_plan);
