@@ -32,3 +32,6 @@ BEGIN
 	
 END; $$
 LANGUAGE plpgsql;
+
+
+select * from contrato;

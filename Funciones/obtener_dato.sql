@@ -7,9 +7,10 @@ RETURNS VARCHAR AS $$
 DECLARE
 	aux varchar;
 	pos_busqueda INTEGER;
+	pos_corchete_Abierto INTEGER;
     resultado varchar;
 BEGIN
-	-- RAISE NOTICE 'String ingresado: %', cadena;
+	--RAISE NOTICE 'String ingresado: %', cadena;
 	
 	pos_busqueda:= position(str_buscar || '[' IN cadena);
 	
@@ -21,17 +22,22 @@ BEGIN
 		--RAISE NOTICE 'AUX: %', aux;
 		
 		-- ahora buscar el corchete derecho para eliminar el resto
+		pos_corchete_Abierto := position('[' IN aux);
 		pos_busqueda := position(']' IN aux);
 		
-		-- eliminar el resto
-		resultado := substring(aux FROM 1 FOR pos_busqueda - 1);
-		
-		-- Si viene vacio retornar NO EXISTE, si no retornar string
-		IF (resultado = '') THEN
-			resultado = 'NO EXISTE';
-			RETURN resultado;
+		IF (pos_corchete_Abierto < pos_busqueda) THEN
+			RETURN 'NO EXISTE';
 		ELSE
-        	RETURN resultado;
+			-- eliminar el resto
+			resultado := substring(aux FROM 1 FOR pos_busqueda - 1);
+
+			-- Si viene vacio retornar NO EXISTE, si no retornar string
+			IF (resultado = '') THEN
+				resultado = 'NO EXISTE';
+				RETURN resultado;
+			ELSE
+				RETURN resultado;
+			END IF;
 		END IF;
     ELSE
         -- Si no se encuentra la subcadena, retornar NULL
