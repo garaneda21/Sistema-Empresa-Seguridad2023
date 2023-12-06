@@ -116,6 +116,7 @@ CREATE TABLE contrato(
 	dur_contrato varchar(50)
 );
 
+--TABLAS DE ACCIONES IMPORTANTE PARA SISTEMA
 CREATE TABLE accion_cliente(
 	cedula INTEGER not null,		--PK/FK
 	id_accion INTEGER not null		--PK/FK
@@ -123,19 +124,26 @@ CREATE TABLE accion_cliente(
 
 CREATE TABLE accion(
 	id_accion INTEGER not null,		--PK
+	id_accion_realizar INTEGER NOT NULL,	--FK
 	parametros_concat varchar(10000),
-	nom_accion_realizar varchar(100),
 	fecha_ini_accion DATE,
 	fecha_ter_accion DATE,
-	fecha_ingreso_accion DATE
+	fecha_ingreso_accion DATE,
 	id_estado INTEGER not null,		--FK
-	comentarios varchar(10000),
+	comentarios varchar(10000)
+);
+
+CREATE TABLE accion_disponible(
+	id_accion_realizar INTEGER NOT NULL, --PK
+	nom_accion_realizar VARCHAR(100),
+	descripcion_accion VARCHAR(5000)
 );
 
 CREATE TABLE estado_accion(
 	id_estado INTEGER not null,		--PK
 	descripcion_estado varchar(1000)	
 );
+--TABLAS DE ACCIONES IMPORTANTE PARA SISTEMA
 
 CREATE TABLE contrata_plan(
 	id_plan INTEGER not null,		--PK/FK
