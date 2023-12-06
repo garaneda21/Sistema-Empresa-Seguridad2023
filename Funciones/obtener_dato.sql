@@ -24,20 +24,15 @@ BEGIN
 		-- ahora buscar el corchete derecho para eliminar el resto
 		pos_corchete_Abierto := position('[' IN aux);
 		pos_busqueda := position(']' IN aux);
-		
-		IF (pos_corchete_Abierto < pos_busqueda) THEN
-			RETURN 'NO EXISTE';
-		ELSE
-			-- eliminar el resto
-			resultado := substring(aux FROM 1 FOR pos_busqueda - 1);
 
-			-- Si viene vacio retornar NO EXISTE, si no retornar string
-			IF (resultado = '') THEN
-				resultado = 'NO EXISTE';
-				RETURN resultado;
-			ELSE
-				RETURN resultado;
-			END IF;
+		-- eliminar el resto
+		resultado := substring(aux FROM 1 FOR pos_busqueda - 1);
+		-- Si viene vacio retornar NO EXISTE, si no retornar string
+		IF (resultado = '') THEN
+			resultado = 'NO EXISTE';
+			RETURN resultado;
+		ELSE
+			RETURN resultado;
 		END IF;
     ELSE
         -- Si no se encuentra la subcadena, retornar NULL

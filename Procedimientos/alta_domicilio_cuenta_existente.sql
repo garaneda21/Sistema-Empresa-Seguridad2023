@@ -1,3 +1,5 @@
+-- [ ] Guardar comentarios en tabla acciones
+
 CREATE OR REPLACE PROCEDURE alta_domicilio_cuenta_existente(
 	Parametros VARCHAR
 ) 
@@ -26,7 +28,6 @@ BEGIN
 		datos[i]=obtener_dato(Parametros,prefijos[i],0);
 		IF datos[i] = 'NO EXISTE' THEN
 			error_detectado := true;
-			
 			CASE i
 			WHEN 1 THEN comentarios := comentarios || 'No se informa la direccion, ';
 			WHEN 2 THEN comentarios := comentarios || 'No se informa la estructura del pais, ';
@@ -39,31 +40,33 @@ BEGIN
 			END CASE;
 		END IF;
 		
-		RAISE NOTICE 'comentario[%] = %',i, comentarios;
+		
 	END LOOP;
-	/*
+	
 	IF error_detectado <> true THEN
-		RAISE NOTICE 'NO SE DETECTARON ERRORES :)';
-		
-		select * from territorio;
-		
-		INSERT INTO domicilio
-		VALUES(nextval('seq_id_dom'),datos[6],datos[5],datos[1],'Activo',CURRENT_DATE,datos[4],datos[2]);
-		INSERT INTO contrata_plan
-		VALUES(datos[3], currval('seq_id_dom'),CURRENT_DATE,NULL,datos[4]);
-		
-		DECLARE cursor_plan_articulo_ligado CURSOR FOR
-    	SELECT *
-		FROM plan_articulo_ligado
-		WHERE id_plan = datos[3];
-			
-		FOR reg IN cursor_plan_articulo_ligado LOOP
-			INSERT INTO contrata_articulo
-			VALUES(currval('seq_id_dom'), reg.id_articulo, datos[4], CURRENT_DATE, NULL,)
-		END LOOP
+		IF existe_cliente(datos[6]) <> true THEN
+			raise notice 'no existe el cliente anda a dormir';
+			comentarios := comentarios || 'la id del cliente ingresado no existe';
+		ELSE
+			INSERT INTO domicilio
+			VALUES(nextval('seq_id_dom'),datos[6],datos[5],datos[1],'Activo',CURRENT_DATE,datos[4],datos[2]);
+			INSERT INTO contrata_plan
+			VALUES(datos[3], currval('seq_id_dom'),CURRENT_DATE,NULL,datos[4]);
+
+			DECLARE cursor_plan_articulo_ligado CURSOR FOR
+			SELECT *
+			FROM plan_articulo_ligado
+			WHERE id_plan = datos[3];
+
+			FOR reg IN cursor_plan_articulo_ligado LOOP
+				INSERT INTO contrata_articulo
+				VALUES(currval('seq_id_dom'), reg.id_articulo, datos[4], CURRENT_DATE, NULL,)
+			END LOOP
+		END IF;
 	ELSE
 		RAISE NOTICE 'HUBO UN ERROR :(';
 	END IF;
-	*/
+
 END; $$
 LANGUAGE plpgsql;
+		   
