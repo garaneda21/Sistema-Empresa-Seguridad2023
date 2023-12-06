@@ -6,11 +6,11 @@ AS $$
 DECLARE
 
 	-- Datos recibidos de los parametros
-    --datos[1] -> direccion
-    --datos[2] -> id_territorio
-    --datos[3] -> plan
-    --datos[4] -> id_contrato
-    --datos[5] -> tipo_domicilio
+    	--datos[1] -> direccion
+    	--datos[2] -> id_territorio
+    	--datos[3] -> plan
+    	--datos[4] -> id_contrato
+    	--datos[5] -> tipo_domicilio
 	--datos[6] -> id_ciclo
 	--datos[7] -> dir_facturacion
 	--datos[8] -> correo_electronico
@@ -57,6 +57,10 @@ BEGIN
 		INSERT INTO contrata_plan
 		VALUES(datos[3], currval('seq_id_dom'),CURRENT_DATE,NULL,datos[4]);
 		
+		UPDATE accion
+		SET id_estado = 1
+		WHERE id_accion = id_accion_actual
+		
 	ELSE
 		--RAISE NOTICE 'HUBO UN ERROR :(';
 	
@@ -64,8 +68,7 @@ BEGIN
 		SET fecha_ter_accion = CURRENT_DATE,
 			id_estado = 2,
 			comentarios = comentarios
-		WHERE 
-			id_accion = id_accion_actual
+		WHERE id_accion = id_accion_actual
 	END IF;
 	
 END; $$
