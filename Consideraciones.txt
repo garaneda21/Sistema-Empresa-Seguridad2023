@@ -9,7 +9,7 @@ esto por que si un cliente no tiene mas domicilios se baja su cuenta y si no tie
 
 Para cuenta existente:
 {
-	string:DIR[]TRR[]PLN[]IDCTR[]TDDOM[]IDACC[]SUC[]VEND[]
+	string:DIR[]TRR[]PLN[]IDCTR[]TDDOM[]IDACC[]IDSUC[]IDVEND[]
 	[error] dirección del domicilio
 	[error] territorio del domicilio ([error]debe pertenecer al país del de la cuenta)
 	[error] plan -> contrata plan
