@@ -77,6 +77,16 @@ INSERT INTO vendedor_domicilio VALUES (2, 2);
 -- Simcard
 INSERT INTO simcard VALUES (123456, 987654321, 'Activa', 1);
 INSERT INTO simcard VALUES (789012, 123456789, 'Inactiva', 2);
+INSERT INTO simcard VALUES (111111, 111222333, 'Inactiva', 1);
+INSERT INTO simcard VALUES (222222, 444555666, 'Inactiva', 2);
+INSERT INTO simcard VALUES (333333, 777888999, 'Inactiva', 2);
+INSERT INTO simcard VALUES (444444, 888999000, 'Inactiva', 1);
+INSERT INTO simcard VALUES (555555, 123987456, 'Inactiva', 2);
+INSERT INTO simcard VALUES (666666, 555666777, 'Inactiva', 1);
+INSERT INTO simcard VALUES (777777, 999888777, 'Inactiva', 1);
+INSERT INTO simcard VALUES (888888, 666555444, 'Inactiva', 2);
+INSERT INTO simcard VALUES (999999, 111000999, 'Inactiva', 2);
+INSERT INTO simcard VALUES (101010, 777666555, 'Inactiva', 1);
 
 -- Articulo
 INSERT INTO articulo VALUES (1, 'Cámara de Seguridad', 'Disponible', false);
