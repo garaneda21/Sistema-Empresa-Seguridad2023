@@ -14,7 +14,7 @@ BEGIN
 			WHEN 0 THEN 
 				-- accion 0
 				RAISE NOTICE 'accion[%] ejecuta alta cuenta existente', reg.id_accion;
-				-- CALL alta_domicilio_cuenta_existente();
+				CALL alta_domicilio_cuenta_existente(reg.parametros_concat);
 			WHEN 1 THEN 
 				-- accion 1
 				RAISE NOTICE 'accion[%] ejecuta alta cuenta nueva', reg.id_accion;
