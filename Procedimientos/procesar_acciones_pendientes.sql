@@ -10,10 +10,11 @@ BEGIN
 		IF reg.id_estado <> 0 THEN
 			RAISE NOTICE 'accion[%] procesada o con error', reg.id_accion;
 		ELSE
-			CASE reg.id_accion
+			CASE reg.id_accion_realizar
 			WHEN 0 THEN 
 				-- accion 0
 				RAISE NOTICE 'accion[%] ejecuta alta cuenta existente', reg.id_accion;
+				-- CALL alta_domicilio_cuenta_existente();
 			WHEN 1 THEN 
 				-- accion 1
 				RAISE NOTICE 'accion[%] ejecuta alta cuenta nueva', reg.id_accion;
