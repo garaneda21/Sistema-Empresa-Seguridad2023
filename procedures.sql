@@ -72,9 +72,31 @@ begin
             )
             values(
                 p_num_cuenta,
-                'tipo de domicilio: ' || coalesce(p_id_contrato, 'No especificado'),
+                'Tipo de domicilio: ' || coalesce(p_id_contrato, 'No especificado'),
                 'Alta de domicilio',
                 'No se informa el tipo de domicilio',
+                CURRENT_DATE,
+                NULL,
+                2,
+                CURRENT_DATE
+            );
+        --prueba 6
+        when not exists (select 1 from cuenta where num_cuenta = p_num_cuenta) then
+            insert into accion(
+                destinatario_accion,
+	            parametros,
+	            accion_realizar,
+	            comentarios,
+	            fecha_ini_accion,
+	            fecha_ter_accion,
+	            id_estado,
+                fecha_ingreso_accion
+            )
+            values(
+                p_num_cuenta,
+                'Numero de cuenta: ' || coalesce(p_num_cuenta, 'No especificado'),
+                'Alta de domicilio',
+                'El cliente no existe',
                 CURRENT_DATE,
                 NULL,
                 2,
