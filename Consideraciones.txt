@@ -1,0 +1,93 @@
+existen varios tipos de altas de domicilios
+- cuenta especifica o existente (ya tiene mas domicilios)
+- cuenta nueva (ya existe el cliente y tiene otras cuentas)
+- nuevo cliente (todo desde cero)
+esto por que si un cliente no tiene mas domicilios se baja su cuenta y si no tiene domicilios en su cuenta se baja al cliente
+
+[error]: los datos que si no se ingresan deben dar error, los que no estén marcados se pueden dejar pasar
+
+
+Para cuenta existente:
+{
+	string:DIR[]TRR[]PLN[]IDCTR[]TDDOM[]IDACC[]SUC[]VEND[]
+	[error] dirección del domicilio
+	[error] territorio del domicilio ([error]debe pertenecer al país del de la cuenta)
+	[error] plan -> contrata plan
+	[error] id de algun contrato
+	[error] tipo de domicilio
+	[error] id_de cuenta existente
+	sucursal
+	vendedor
+}
+Para cuenta nueva:
+{
+	string:DIR[]TRR[]PLN[]IDCTR[]TDM[]ACCCYC[]ACCFCDIR[]ACCMAIL[]ACCTFC[]ACCIDCLI[]
+	[error] direccion del domicilio
+	[error] territorio del domicilio (debe pertenecer al pais del de la cuenta)
+	[error] plan -> contrata plan
+	[error] id de algun contrato
+	[error] tipo de domicilio
+	-- para la nueva cuenta
+	[error] id del ciclo de la cuenta ([error] ciclo debe existir)
+	direccion de facturacion
+	correo
+	factura electronica o fisica
+	id_cliente existente
+}
+
+para cliente nuevo (la que vale 8 puntos):
+{
+	string:DIR[]TRR[]PLN[]IDCTR[]TDM[]ACCCYC[]ACCFCDIR[]ACCMAIL[]ACCTFC[]CLICED[]CLINOM[]CLITIP[]
+	[error] direccion del domicilio
+	[error] territorio del domicilio
+	[error] plan -> contrata plan
+	[error] id de algun contrato
+	[error] tipo de domicilio
+	-- para la nueva cuenta
+	id del ciclo de la cuenta
+	direccion de facturacion
+	correo
+	factura electronica o fisica
+	-- para nuevo cliente
+	cedula
+	nombre completo
+	tipo de cliente
+}
+
+ARTICULOS
+
+alta articulo:
+{
+	string: IDART[]IDDOM[]
+	[error] id del articulo
+	[error] id del domicilio 
+	(
+		[error] de alta
+		[error] el articulo no debe estar ya contratado
+		[error] 17. no entiendo esta (creo que si no esta opcional al plan no lo puede contratar nunca)
+	)
+	procedimiento
+	{
+		activar articulo opcional
+		19. tampoco la entiendo
+		20. tampoco la entiendo
+		21. tampoco la entiendo
+	}
+}
+
+tengo pensado hacer un procedimiento por cada tipo de alta por lo que serian 4:
+alta_domicilio_cuenta_existente()
+alta_domicilio_nueva_cuenta()
+alta_domicilio_nuevo_cliente()
+alta_articulo()
+
+tambien un procedimiento pequeño por cada dato que se vaya a dar de alta, para tener todo mas modular
+por lo que dentro de alta_domicilio_cuenta_existente() tendriamos
+
+alta_domicilio_cuenta_existente()
+{
+	ingreso_direccion()
+	ingreso_territorio()
+	ingreso_plan()
+	...
+}
