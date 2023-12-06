@@ -128,7 +128,10 @@ INSERT INTO estado_accion VALUES (2, 'Error');
 -- Plan
 INSERT INTO plan VALUES (1, 'Plan Básico', 'Vigente');
 INSERT INTO plan VALUES (2, 'Plan Avanzado', 'Vigente');
-
+INSERT INTO plan VALUES (3, 'Plan Residencial', 'Vigente');
+INSERT INTO plan VALUES (4, 'Plan Empresarial', 'Vigente');
+INSERT INTO plan VALUES (5, 'Plan Total Security', 'Vigente');
+INSERT INTO plan VALUES (6, 'Plan Protección 360', 'Vigente');
 
 -- Contrata Plan
 INSERT INTO contrata_plan VALUES (1, 1, '2023-01-01', '2023-12-31', 1);
@@ -138,6 +141,14 @@ INSERT INTO contrata_plan VALUES (2, 2, '2023-02-01', '2023-12-31', 2);
 -- Plan Articulo Ligado
 INSERT INTO plan_articulo_ligado VALUES (1, 1);
 INSERT INTO plan_articulo_ligado VALUES (2, 2);
+INSERT INTO plan_articulo_ligado VALUES (3, 1);
+INSERT INTO plan_articulo_ligado VALUES (3, 5);
+INSERT INTO plan_articulo_ligado VALUES (4, 2);
+INSERT INTO plan_articulo_ligado VALUES (4, 6);
+INSERT INTO plan_articulo_ligado VALUES (5, 7);
+INSERT INTO plan_articulo_ligado VALUES (5, 8);
+INSERT INTO plan_articulo_ligado VALUES (6, 9);
+INSERT INTO plan_articulo_ligado VALUES (6, 10);
 
 -- Plan Articulo Opcional
 INSERT INTO plan_articulo_opcional VALUES (1, 2);
