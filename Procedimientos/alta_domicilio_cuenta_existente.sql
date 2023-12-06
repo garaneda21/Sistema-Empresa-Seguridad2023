@@ -1,7 +1,8 @@
 -- [ ] Guardar comentarios en tabla acciones
 
 CREATE OR REPLACE PROCEDURE alta_domicilio_cuenta_existente(
-	Parametros VARCHAR
+	Parametros VARCHAR,
+	id_accion_actual INTEGER
 ) 
 AS $$
 DECLARE
