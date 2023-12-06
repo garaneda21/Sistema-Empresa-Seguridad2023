@@ -1,4 +1,4 @@
-CREATE OR REPLACE FUNCTION existe_cliente(var_num_cuenta VARCHAR)
+CREATE OR REPLACE FUNCTION existe_cuenta(var_num_cuenta VARCHAR)
 RETURNS BOOL AS $$
 DECLARE
 	DECLARE cur_cuenta CURSOR FOR
