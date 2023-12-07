@@ -163,3 +163,11 @@ INSERT INTO plan_articulo_ligado VALUES (6, 10);
 -- Plan Articulo Opcional
 INSERT INTO plan_articulo_opcional VALUES (1, 2);
 INSERT INTO plan_articulo_opcional VALUES (2, 1);
+
+-- Accion disponible
+INSERT INTO accion_disponible
+VALUES (0,'Alta Domicilio Cuenta Existente', 'DIR[]IDTRR[]PLN[]IDCTR[]TDDOM[]IDACC[]IDSUC[]IDVEND[]');
+INSERT INTO accion_disponible
+VALUES (1,'Alta Domicilio Cuenta Nueva', 'DIR[]TRR[]PLAN[]IDCTR[]TDOM[]IDCICLO[]DIRFACT[]CORREO[]TIPOFACT[]CEDULA[]');
+INSERT INTO accion_disponible
+VALUES (2,'Alta Domicilio Cliente Nuevo', 'DIR[]TRR[]PLN[]IDCTR[]TDDOM[]IDCICLO[]DIRFACT[]CORREO[]TIPOFACT[]CEDULA[]NOMBRES[]APP[]APM[]TIPOCLI[]');
