@@ -21,6 +21,9 @@ DECLARE
 	datos[13] -> apellido materno
 	datos[14] -> tipo cliente
 */	
+	DECLARE cursor_plan_articulo_ligado CURSOR FOR
+	SELECT *
+	FROM plan_articulo_ligado;
 
 	datos varchar[];
 	prefijos varchar[] := ARRAY['DIR','TRR','PLN','IDCTR','TDDOM','IDCICLO','DIRFACT','CORREO','TIPOFACT','CEDULA','NOMBRES','APP','APM','TIPOCLI'];
@@ -68,20 +71,29 @@ BEGIN
 	IF error_detectado <> true THEN
 		--RAISE NOTICE 'NO SE DETECTARON ERRORES :)';
 		INSERT INTO cliente
-		VALUES(CAST(datos[10] AS INTEGER),CAST(datos[2] AS INTEGER),'DNI',datos[11],datos[12],datos[13],datos[14],'Activo',CURRENT_DATE,NULL);
+		VALUES(datos[10],datos[2],'DNI',datos[11],datos[12],datos[13],datos[14],'Activo',CURRENT_DATE,NULL);
 		
 		INSERT INTO cuenta
-		VALUES(nextval('seq_id_cuenta'),CAST(datos[10] AS INTEGER),CAST(datos[6] AS INTEGER),datos[7],datos[9],datos[8],'Activo',CURRENT_DATE,CAST(datos[2] AS INTEGER));
+		VALUES(nextval('seq_id_cuenta'),datos[10],datos[6],datos[7],datos[9],datos[8],'Activo',CURRENT_DATE,datos[2]);
 		
 		INSERT INTO domicilio
-		VALUES(nextval('seq_id_dom'),currval('seq_id_cuenta'),datos[5],datos[1],'Activo',CURRENT_DATE,CAST(datos[4] AS INTEGER),CAST(datos[2] AS INTEGER));
+		VALUES(nextval('seq_id_dom'),currval('seq_id_cuenta'),datos[5],datos[1],'Activo',CURRENT_DATE,datos[4],datos[2]);
 		
 		INSERT INTO contrata_plan
-		VALUES(CAST(datos[3] AS INTEGER), currval('seq_id_dom'),CURRENT_DATE,NULL,CAST(datos[4] AS INTEGER));
+		VALUES(datos[3], currval('seq_id_dom'),CURRENT_DATE,NULL,datos[4]);
+		
+		-- INSERT ARTICULOS LIGADOS AL PLAN
+		FOR reg IN cursor_plan_articulo_ligado LOOP
+			IF reg.id_plan = CAST(datos[3] AS INTEGER) THEN
+				INSERT INTO contrata_articulo
+				VALUES(currval('seq_id_dom'), reg.id_articulo, CAST(datos[4] AS INTEGER), CURRENT_DATE, NULL, 111111, CURRENT_DATE, NULL, 'Asignado', NULL);
+			END IF;
+		END LOOP;
 		
 		UPDATE accion
 		SET id_estado = 1,
-			fech_ter_accion = CURRENT_DATE
+			fech_ter_accion = CURRENT_DATE,
+			comentarios = 'Operacion Realizada con Exito'
 		WHERE id_accion = id_accion_actual;
 	ELSE
 		--RAISE NOTICE 'HUBO UN ERROR :(';
