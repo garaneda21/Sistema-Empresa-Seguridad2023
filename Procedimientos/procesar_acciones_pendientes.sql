@@ -22,6 +22,7 @@ BEGIN
 			WHEN 2 THEN 
 				-- accion 2
 				RAISE NOTICE 'accion[%] ejecuta alta nuevo cliente', reg.id_accion;
+				CALL alta_domicilio_nuevocliente(reg.parametros_concat,reg.id_accion);
 			WHEN 3 THEN
 				-- accion 3
 				RAISE NOTICE 'accion[%] ejecuta alta de un articulo', reg.id_accion;
