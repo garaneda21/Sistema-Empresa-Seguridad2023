@@ -1,5 +1,6 @@
 CREATE OR REPLACE PROCEDURE alta_domicilio_nuevocliente(
-	Parametros VARCHAR
+	Parametros VARCHAR,
+	id_accion_actual integer
 ) 
 AS $$
 DECLARE
@@ -49,6 +50,16 @@ BEGIN
 				WHEN 14 THEN comentarios := comentarios || 'No se informa el tipo de cliente, ';
 				
 		END IF;
+
+		IF existe_ciclo(datos[6]) <> true THEN
+			comentarios := comentarios || 'El ciclo no existe en el sistema, ';
+			error_detectado := true;
+		END IF;
+
+		IF existe_cliente(datos[10]) <> true THEN
+			comentarios := comentarios || 'El cliente ya existe en el sistema';
+			error_detectado := true;
+		END IF;
 		
 		--RAISE NOTICE 'dato[%] = %',i,datos[i];
 		--RAISE NOTICE 'error detectado = %',error_detectado;
@@ -60,16 +71,17 @@ BEGIN
 		VALUES(datos[10],datos[2],'DNI',datos[11],datos[12],datos[13],datos[14],'Activo',CURRENT_DATE,NULL);
 		
 		INSERT INTO cuenta
-		VALUES(currval('seq_id_cuenta'),datos[10],datos[6],datos[7],datos[9],datos[8],'Activo',CURRENT_DATE,datos[2]);
+		VALUES(nextval('seq_id_cuenta'),datos[10],datos[6],datos[7],datos[9],datos[8],'Activo',CURRENT_DATE,datos[2]);
 		
 		INSERT INTO domicilio
-		VALUES(nextval('seq_id_dom'),nextval('seq_id_cuenta'),datos[5],datos[1],'Activo',CURRENT_DATE,datos[4],datos[2]);
+		VALUES(nextval('seq_id_dom'),currval('seq_id_cuenta'),datos[5],datos[1],'Activo',CURRENT_DATE,datos[4],datos[2]);
 		
 		INSERT INTO contrata_plan
 		VALUES(datos[3], currval('seq_id_dom'),CURRENT_DATE,NULL,datos[4]);
 		
 		UPDATE accion
-		SET id_estado = 1
+		SET id_estado = 1,
+			fech_ter_accion = CURRENT_DATE
 		WHERE id_accion = id_accion_actual
 	ELSE
 		--RAISE NOTICE 'HUBO UN ERROR :(';
