@@ -66,7 +66,7 @@ BEGIN
 		UPDATE accion
 		SET id_estado = 1,
 			fecha_ter_accion = CURRENT_DATE
-		WHERE id_accion = id_accion_actual
+		WHERE id_accion = id_accion_actual;
 		
 	ELSE
 		--RAISE NOTICE 'HUBO UN ERROR :(';
@@ -75,7 +75,7 @@ BEGIN
 		SET fecha_ter_accion = CURRENT_DATE,
 			id_estado = 2,
 			comentarios = comentarios
-		WHERE id_accion = id_accion_actual
+		WHERE id_accion = id_accion_actual;
 	END IF;
 	
 END; $$
