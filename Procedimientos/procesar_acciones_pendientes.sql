@@ -15,7 +15,9 @@ BEGIN
 			WHEN 1 THEN 
 				CALL alta_domicilio_cuenta_nueva(reg.parametros_concat,reg.id_accion);
 			WHEN 2 THEN 
+				CALL alta_domicilio_nuevocliente(reg.parametros_concat,reg.id_accion);
 			WHEN 3 THEN
+				-- Alta Articulos
 			END CASE;
 		END IF;
 	END LOOP;
