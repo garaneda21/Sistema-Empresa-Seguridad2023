@@ -5,44 +5,49 @@ AS $$
 DECLARE
 /*
 	-- Datos recibidos de los parametros
-    v_direccion varchar;
-    v_territorio varchar;
-    v_plan varchar;
-    v_id_contrato varchar;
-    v_tipo_domicilio varchar;
-    v_id_sucursal varchar;
-    v_id_vendedor varchar;
-	v_cedula integer;
-	v_id_territorio integer;
-	v_tipo_cedula varchar(100);
-	v_nombres varchar(100);
-	v_apellido_p varchar(100);
-	v_apellido_m varchar(100);
-	v_tipo_cliente varchar(100);
-	v_estado_cliente varchar(100);
-	v_fecha_alta_cliente DATE;
-	v_telefono integer;
-    v_num_cuenta varchar;
-	v_id_ciclo integer;
-	v_dir_facturacion varchar(100);
-	v_tipo_facturacion varchar(100);
-	v_correo_electronico varchar(100);
-	v_estado_cuenta varchar(100);
-	v_fecha_alta_cuenta DATE;
+    	datos[1] -> direccion
+	datos[2] -> id_territorio
+	datos[3] -> id_plan
+	datos[4] -> id_contrato
+	datos[5] -> tipo_domicilio
+	datos[6] -> id_ciclo
+	datos[7] -> direccion facturacion
+	datos[8] -> correo
+	datos[9] -> tipo factura
+	datos[10] -> cedula
+	datos[11] -> nombres
+	datos[12] -> apellido paterno
+	datos[13] -> apellido materno
+	datos[14] -> tipo cliente
 */	
 
 	datos varchar[];
-	prefijos varchar[] := ARRAY['DIR','TRR','PLN','IDCTR','TDDOM','IDACC','IDSUC','IDVEND','CED','IDTRR','TCED','NOM','APP','APM','TCLI','ESTCLI','FACLI','TEL','NCUE','IDCIC','DIRFACT','TFACT','EMAIL','ESTCUE','FACUE'];
+	prefijos varchar[] := ARRAY['DIR','TRR','PLN','IDCTR','TDDOM','IDCICLO','DIRFACT','CORREO','TIPOFACT','CEDULA','NOMBRES','APP','APM','TIPOCLI'];
 	error_detectado bool := false;
+	comentarios varchar := '';
 BEGIN
 
-	FOR i IN 1..24 LOOP
+	FOR i IN 1..14 LOOP
 		datos[i]=obtener_dato(Parametros,prefijos[i],0);
 		IF datos[i] = 'NO EXISTE' THEN
 			error_detectado := true;
 
 			CASE i
-			WHEN 1 THEN
+				WHEN 1 THEN comentarios := comentarios || 'No se informa la direccion, ';
+				WHEN 2 THEN comentarios := comentarios || 'No se informa la estructura del pais, ';
+				WHEN 3 THEN comentarios := comentarios || 'No se informa el plan, ';
+				WHEN 4 THEN comentarios := comentarios || 'No se informa el contrato, ';
+				WHEN 5 THEN comentarios := comentarios || 'No se informa el tipo de domicilio, ';
+				WHEN 6 THEN comentarios := comentarios || 'No se informa el ciclo de facturacion, ';
+				WHEN 7 THEN comentarios := comentarios || 'No se informa la direccion de facturacion, ';
+				WHEN 8 THEN comentarios := comentarios || 'No se informa el correo, ';
+				WHEN 9 THEN comentarios := comentarios || 'No se informa el tipo de facturacion, ';
+				WHEN 10 THEN comentarios := comentarios || 'No se informa la cedula del cliente, ';
+				WHEN 11 THEN comentarios := comentarios || 'No se informan los nombres del cliente, ';
+				WHEN 12 THEN comentarios := comentarios || 'No se informa el apellido paterno del cliente, ';
+				WHEN 13 THEN comentarios := comentarios || 'No se informa el apellido materno del cliente, ';
+				WHEN 14 THEN comentarios := comentarios || 'No se informa el tipo de cliente, ';
+				
 		END IF;
 		
 		--RAISE NOTICE 'dato[%] = %',i,datos[i];
@@ -50,9 +55,29 @@ BEGIN
 	END LOOP;
 	
 	IF error_detectado <> true THEN
-		RAISE NOTICE 'NO SE DETECTARON ERRORES :)';
+		--RAISE NOTICE 'NO SE DETECTARON ERRORES :)';
+		INSERT INTO cliente
+		VALUES(datos[10],datos[2],'DNI',datos[11],datos[12],datos[13],datos[14],'Activo',CURRENT_DATE,NULL);
+		
+		INSERT INTO cuenta
+		VALUES(currval('seq_id_cuenta'),datos[10],datos[6],datos[7],datos[9],datos[8],'Activo',CURRENT_DATE,datos[2]);
+		
+		INSERT INTO domicilio
+		VALUES(nextval('seq_id_dom'),nextval('seq_id_cuenta'),datos[5],datos[1],'Activo',CURRENT_DATE,datos[4],datos[2]);
+		
+		INSERT INTO contrata_plan
+		VALUES(datos[3], currval('seq_id_dom'),CURRENT_DATE,NULL,datos[4]);
+		
+		UPDATE accion
+		SET id_estado = 1
+		WHERE id_accion = id_accion_actual
 	ELSE
-		RAISE NOTICE 'HUBO UN ERROR :(';
+		--RAISE NOTICE 'HUBO UN ERROR :(';
+		UPDATE accion
+		SET fecha_ter_accion = CURRENT_DATE,
+			id_estado = 2,
+			comentarios = comentarios
+		WHERE id_accion = id_accion_actual
 	END IF;
 	
 END; $$
