@@ -1,5 +1,3 @@
--- [ ] Guardar comentarios en tabla acciones
-
 CREATE OR REPLACE PROCEDURE alta_domicilio_cuenta_existente(
 	Parametros VARCHAR,
 	var_id_accion integer
