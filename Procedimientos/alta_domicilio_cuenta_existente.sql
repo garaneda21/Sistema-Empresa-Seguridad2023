@@ -1,8 +1,13 @@
 -- [ ] Guardar comentarios en tabla acciones
 
 CREATE OR REPLACE PROCEDURE alta_domicilio_cuenta_existente(
+<<<<<<< HEAD
 	Parametros VARCHAR
 	
+=======
+	Parametros VARCHAR,
+	id_accion_actual INTEGER
+>>>>>>> 7dd3c839fa47140a9c9121b55b68412df481c337
 ) 
 AS $$
 DECLARE
@@ -79,5 +84,9 @@ BEGIN
 	END IF;
 END; $$
 LANGUAGE plpgsql;
+<<<<<<< HEAD
 
 select * from accion;
+=======
+		   
+>>>>>>> 7dd3c839fa47140a9c9121b55b68412df481c337
