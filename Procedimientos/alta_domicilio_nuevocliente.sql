@@ -48,7 +48,7 @@ BEGIN
 				WHEN 12 THEN comentarios := comentarios || 'No se informa el apellido paterno del cliente, ';
 				WHEN 13 THEN comentarios := comentarios || 'No se informa el apellido materno del cliente, ';
 				WHEN 14 THEN comentarios := comentarios || 'No se informa el tipo de cliente, ';
-				
+			END CASE;
 		END IF;
 
 		IF existe_ciclo(datos[6]) <> true THEN
@@ -82,14 +82,14 @@ BEGIN
 		UPDATE accion
 		SET id_estado = 1,
 			fech_ter_accion = CURRENT_DATE
-		WHERE id_accion = id_accion_actual
+		WHERE id_accion = id_accion_actual;
 	ELSE
 		--RAISE NOTICE 'HUBO UN ERROR :(';
 		UPDATE accion
 		SET fecha_ter_accion = CURRENT_DATE,
 			id_estado = 2,
 			comentarios = comentarios
-		WHERE id_accion = id_accion_actual
+		WHERE id_accion = id_accion_actual;
 	END IF;
 	
 END; $$
