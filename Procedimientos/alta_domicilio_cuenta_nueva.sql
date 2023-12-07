@@ -4,7 +4,6 @@ CREATE OR REPLACE PROCEDURE alta_domicilio_cuenta_nueva(
 ) 
 AS $$
 DECLARE
-
 	-- Datos recibidos de los parametros
     	--datos[1] -> direccion
     	--datos[2] -> id_territorio
@@ -16,6 +15,11 @@ DECLARE
 	--datos[8] -> correo_electronico
 	--datos[9] -> tipo_facturacion
 	--datos[10] -> cedula
+	
+	DECLARE cursor_plan_articulo_ligado CURSOR FOR
+	SELECT *
+	FROM plan_articulo_ligado;
+	
 	comentarios varchar := '';
 	
 	datos varchar[];
@@ -55,18 +59,26 @@ BEGIN
 		--RAISE NOTICE 'NO SE DETECTARON ERRORES :)';
 		
 		INSERT INTO cuenta
-		VALUES(nextval('seq_id_cuenta'),datos[10],datos[6],datos[7],datos[9],datos[8],'Activo',CURRENT_DATE,datos[2]);
+		VALUES(nextval('seq_id_cuenta'),CAST(datos[10] AS INTEGER),CAST(datos[6] AS INTEGER),datos[7],datos[9],datos[8],'Activo',CURRENT_DATE,CAST(datos[2] AS INTEGER));
 		
 		INSERT INTO domicilio
-		VALUES(nextval('seq_id_dom'),currval('seq_id_cuenta'),datos[5],datos[1],'Activo',CURRENT_DATE,datos[4],datos[2]);
+		VALUES(nextval('seq_id_dom'),currval('seq_id_cuenta'),datos[5],datos[1],'Activo',CURRENT_DATE,CAST(datos[4] AS INTEGER),CAST(datos[2] AS INTEGER));
 		
 		INSERT INTO contrata_plan
-		VALUES(datos[3], currval('seq_id_dom'),CURRENT_DATE,NULL,datos[4]);
+		VALUES(CAST(datos[3] AS INTEGER), currval('seq_id_dom'),CURRENT_DATE,NULL,CAST(datos[4] AS INTEGER));
 		
+		-- INSERT ARTICULOS LIGADOS AL PLAN
+			FOR reg IN cursor_plan_articulo_ligado LOOP
+				IF reg.id_plan = CAST(datos[3] AS INTEGER) THEN
+					INSERT INTO contrata_articulo
+					VALUES(currval('seq_id_dom'), reg.id_articulo, CAST(datos[4] AS INTEGER), CURRENT_DATE, NULL, 111111, CURRENT_DATE, NULL, 'Asignado', NULL);
+				END IF;
+			END LOOP;
 		UPDATE accion
-		SET id_estado = 1,
-			fecha_ter_accion = CURRENT_DATE
-		WHERE id_accion = id_accion_actual;
+		SET id_estado = 1, 
+			fecha_ter_accion = CURRENT_DATE,
+			comentarios = 'Operacion Realizada con Exito'
+			WHERE id_accion = id_accion_actual;
 		
 	ELSE
 		--RAISE NOTICE 'HUBO UN ERROR :(';
