@@ -2,6 +2,7 @@
 
 CREATE OR REPLACE PROCEDURE alta_domicilio_cuenta_existente(
 	Parametros VARCHAR
+	
 ) 
 AS $$
 DECLARE
@@ -14,7 +15,10 @@ DECLARE
 	-- datos[6]: num_cuenta
 	-- datos[7]: id_sucursal
 	-- datos[8]: id_vendedor
-	
+	DECLARE cursor_plan_articulo_ligado CURSOR FOR
+		SELECT *
+		FROM plan_articulo_ligado;
+			
 	datos varchar[];
 	prefijos varchar[] := ARRAY['DIR','IDTRR','PLN','IDCTR','TDDOM','IDACC','IDSUC','IDVEND'];
 	error_detectado bool := false;
@@ -26,6 +30,9 @@ BEGIN
 
 	FOR i IN 1..8 LOOP
 		datos[i]=obtener_dato(Parametros,prefijos[i],0);
+		
+		raise notice 'dato[%]%',i,datos[i];
+		
 		IF datos[i] = 'NO EXISTE' THEN
 			error_detectado := true;
 			CASE i
@@ -38,35 +45,39 @@ BEGIN
 			WHEN 7 THEN comentarios := comentarios || 'No se informa la id de la sucursal, ';
 			WHEN 8 THEN comentarios := comentarios || 'No se informa la id del vendedor, ';
 			END CASE;
-		END IF;
-		
-		
+		END IF;		
 	END LOOP;
 	
+	raise notice 'coment: %',comentarios;
+	
 	IF error_detectado <> true THEN
-		IF existe_cliente(datos[6]) <> true THEN
+		IF existe_cuenta(datos[6]) <> true THEN
 			raise notice 'no existe el cliente anda a dormir';
 			comentarios := comentarios || 'la id del cliente ingresado no existe';
 		ELSE
+			-- INSERT DOMICILIO
 			INSERT INTO domicilio
-			VALUES(nextval('seq_id_dom'),datos[6],datos[5],datos[1],'Activo',CURRENT_DATE,datos[4],datos[2]);
+			VALUES(nextval('seq_id_dom'),CAST(datos[6] AS INTEGER),datos[5],datos[1],'Activo',CURRENT_DATE,CAST(datos[4] AS INTEGER),CAST(datos[2] AS INTEGER));
+			
+			-- INSERT CONTRATA PLAN
 			INSERT INTO contrata_plan
-			VALUES(datos[3], currval('seq_id_dom'),CURRENT_DATE,NULL,datos[4]);
-
-			DECLARE cursor_plan_articulo_ligado CURSOR FOR
-			SELECT *
-			FROM plan_articulo_ligado
-			WHERE id_plan = datos[3];
-
+			VALUES(CAST(datos[3] AS INTEGER), currval('seq_id_dom'),CURRENT_DATE,NULL,CAST(datos[4] AS INTEGER));
+			
+			-- INSERT ARTICULOS LIGADOS AL PLAN
 			FOR reg IN cursor_plan_articulo_ligado LOOP
-				INSERT INTO contrata_articulo
-				VALUES(currval('seq_id_dom'), reg.id_articulo, datos[4], CURRENT_DATE, NULL,)
-			END LOOP
+				IF reg.id_plan = CAST(datos[3] AS INTEGER) THEN
+					INSERT INTO contrata_articulo
+					VALUES(currval('seq_id_dom'), reg.id_articulo, CAST(datos[4] AS INTEGER), CURRENT_DATE, NULL, 789012, CURRENT_DATE, NULL, 'Asignado', NULL);
+				END IF;
+			END LOOP;
 		END IF;
 	ELSE
-		RAISE NOTICE 'HUBO UN ERROR :(';
+		-- UPDATE TABLA ACCION
+		UPDATE accion
+		SET columna1 = valor1, columna2 = valor2, ...
+		WHERE id_accion = ;
 	END IF;
-
 END; $$
 LANGUAGE plpgsql;
-		   
+
+select * from accion;
