@@ -68,16 +68,16 @@ BEGIN
 	IF error_detectado <> true THEN
 		--RAISE NOTICE 'NO SE DETECTARON ERRORES :)';
 		INSERT INTO cliente
-		VALUES(datos[10],datos[2],'DNI',datos[11],datos[12],datos[13],datos[14],'Activo',CURRENT_DATE,NULL);
+		VALUES(CAST(datos[10] AS INTEGER),CAST(datos[2] AS INTEGER),'DNI',datos[11],datos[12],datos[13],datos[14],'Activo',CURRENT_DATE,NULL);
 		
 		INSERT INTO cuenta
-		VALUES(nextval('seq_id_cuenta'),datos[10],datos[6],datos[7],datos[9],datos[8],'Activo',CURRENT_DATE,datos[2]);
+		VALUES(nextval('seq_id_cuenta'),CAST(datos[10] AS INTEGER),CAST(datos[6] AS INTEGER),datos[7],datos[9],datos[8],'Activo',CURRENT_DATE,CAST(datos[2] AS INTEGER));
 		
 		INSERT INTO domicilio
-		VALUES(nextval('seq_id_dom'),currval('seq_id_cuenta'),datos[5],datos[1],'Activo',CURRENT_DATE,datos[4],datos[2]);
+		VALUES(nextval('seq_id_dom'),currval('seq_id_cuenta'),datos[5],datos[1],'Activo',CURRENT_DATE,CAST(datos[4] AS INTEGER),CAST(datos[2] AS INTEGER));
 		
 		INSERT INTO contrata_plan
-		VALUES(datos[3], currval('seq_id_dom'),CURRENT_DATE,NULL,datos[4]);
+		VALUES(CAST(datos[3] AS INTEGER), currval('seq_id_dom'),CURRENT_DATE,NULL,CAST(datos[4] AS INTEGER));
 		
 		UPDATE accion
 		SET id_estado = 1,
