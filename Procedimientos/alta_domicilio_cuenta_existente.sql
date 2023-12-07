@@ -1,13 +1,8 @@
 -- [ ] Guardar comentarios en tabla acciones
 
 CREATE OR REPLACE PROCEDURE alta_domicilio_cuenta_existente(
-<<<<<<< HEAD
-	Parametros VARCHAR
-	
-=======
 	Parametros VARCHAR,
-	id_accion_actual INTEGER
->>>>>>> 7dd3c839fa47140a9c9121b55b68412df481c337
+	var_id_accion integer
 ) 
 AS $$
 DECLARE
@@ -30,35 +25,30 @@ DECLARE
 	
 	var_id_territorio integer;
 	var_max_id_art integer;
-	comentarios varchar := '';
+	var_comentarios varchar := '';
 BEGIN
 
 	FOR i IN 1..8 LOOP
 		datos[i]=obtener_dato(Parametros,prefijos[i],0);
 		
-		raise notice 'dato[%]%',i,datos[i];
-		
 		IF datos[i] = 'NO EXISTE' THEN
 			error_detectado := true;
 			CASE i
-			WHEN 1 THEN comentarios := comentarios || 'No se informa la direccion, ';
-			WHEN 2 THEN comentarios := comentarios || 'No se informa la estructura del pais, ';
-			WHEN 3 THEN comentarios := comentarios || 'No se informa el plan, ';
-			WHEN 4 THEN comentarios := comentarios || 'No se informa el contrato, ';
-			WHEN 5 THEN comentarios := comentarios || 'No se informa el tipo de domicilio, ';
-			WHEN 6 THEN comentarios := comentarios || 'No se informa la id del cliente, ';
-			WHEN 7 THEN comentarios := comentarios || 'No se informa la id de la sucursal, ';
-			WHEN 8 THEN comentarios := comentarios || 'No se informa la id del vendedor, ';
+			WHEN 1 THEN var_comentarios := var_comentarios || 'No se informa la direccion, ';
+			WHEN 2 THEN var_comentarios := var_comentarios || 'No se informa la estructura del pais, ';
+			WHEN 3 THEN var_comentarios := var_comentarios || 'No se informa el plan, ';
+			WHEN 4 THEN var_comentarios := var_comentarios || 'No se informa el contrato, ';
+			WHEN 5 THEN var_comentarios := var_comentarios || 'No se informa el tipo de domicilio, ';
+			WHEN 6 THEN var_comentarios := var_comentarios || 'No se informa la id del cliente, ';
+			WHEN 7 THEN var_comentarios := var_comentarios || 'No se informa la id de la sucursal, ';
+			WHEN 8 THEN var_comentarios := var_comentarios || 'No se informa la id del vendedor, ';
 			END CASE;
 		END IF;		
 	END LOOP;
 	
-	raise notice 'coment: %',comentarios;
-	
 	IF error_detectado <> true THEN
 		IF existe_cuenta(datos[6]) <> true THEN
-			raise notice 'no existe el cliente anda a dormir';
-			comentarios := comentarios || 'la id del cliente ingresado no existe';
+			var_comentarios := var_comentarios || 'la id del cliente ingresado no existe';
 		ELSE
 			-- INSERT DOMICILIO
 			INSERT INTO domicilio
@@ -72,21 +62,20 @@ BEGIN
 			FOR reg IN cursor_plan_articulo_ligado LOOP
 				IF reg.id_plan = CAST(datos[3] AS INTEGER) THEN
 					INSERT INTO contrata_articulo
-					VALUES(currval('seq_id_dom'), reg.id_articulo, CAST(datos[4] AS INTEGER), CURRENT_DATE, NULL, 789012, CURRENT_DATE, NULL, 'Asignado', NULL);
+					VALUES(currval('seq_id_dom'), reg.id_articulo, CAST(datos[4] AS INTEGER), CURRENT_DATE, NULL, 111111, CURRENT_DATE, NULL, 'Asignado', NULL);
 				END IF;
 			END LOOP;
+			
+			-- UPDATE TABLA ACCION
+			UPDATE accion
+			SET fecha_ter_accion = CURRENT_DATE, id_estado = 1, comentarios = 'Operacion realizada con exito'
+			WHERE id_accion = var_id_accion;
 		END IF;
 	ELSE
 		-- UPDATE TABLA ACCION
 		UPDATE accion
-		SET columna1 = valor1, columna2 = valor2, ...
-		WHERE id_accion = ;
+		SET fecha_ter_accion = CURRENT_DATE, id_estado = 2, comentarios = var_comentarios
+		WHERE id_accion = var_id_accion;
 	END IF;
 END; $$
 LANGUAGE plpgsql;
-<<<<<<< HEAD
-
-select * from accion;
-=======
-		   
->>>>>>> 7dd3c839fa47140a9c9121b55b68412df481c337
